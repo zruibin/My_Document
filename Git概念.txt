@@ -11,8 +11,10 @@ git branch     列出本地git库中的所有分支
 git checkout local_branch 切换到某个已经建立的本地分支local_branch
 git checkout –b 新分支名
 git tag V3 5b888 //以后可以用V3来代替复杂的名称(5b888…)
-git show exp//显示分支信息
-
+git show exp  //显示分支信息
+git  clone  git://github.com/someone/some_project.git   some_project 
+              //将'git://github.com/someone/some_project. git'这个URL地址的远程版本库，完全克隆到本地some_project目录下
+git push https://git.oschina.net/zruibin/me.git 将本地commit的代码更新到远程版本库中
 
 
 1. Git概念 
