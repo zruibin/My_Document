@@ -1,4 +1,4 @@
-我的常用
+﻿我的常用
 git init        创建一个空的Git库。在当前目录中产生一个.git 
 git add dir1  （添加dir1这个目录，目录下的所有文件都被加入 ） 
 git add f1 f2 （ 添加f1，f2文件） 
@@ -15,6 +15,11 @@ git show exp  //显示分支信息
 git  clone  git://github.com/someone/some_project.git   some_project 
               //将'git://github.com/someone/some_project. git'这个URL地址的远程版本库，完全克隆到本地some_project目录下
 git push https://git.oschina.net/zruibin/me.git 将本地commit的代码更新到远程版本库中
+
+git fetch origin master:temp 这句命令的意思是：从远程的origin仓库的master分支下载到本地并新建一个分支temp
+git diff temp 比较master分支和temp分支的不同
+git branch -d temp 如果该分支没有合并到主分支会报错，可以用以下命令强制删除git branch -D <分支名>
+
 
 
 1. Git概念 
