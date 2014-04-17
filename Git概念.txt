@@ -18,6 +18,7 @@ git push https://git.oschina.net/zruibin/me.git 将本地commit的代码更新�
 
 git fetch origin master:temp 这句命令的意思是：从远程的origin仓库的master分支下载到本地并新建一个分支temp
 git diff temp 比较master分支和temp分支的不同
+git merge temp 合并temp分支到master分支
 git branch -d temp 如果该分支没有合并到主分支会报错，可以用以下命令强制删除git branch -D <分支名>
 
 git中，每次提交修改文件之前要add，然后再commit。git的add命令和许多版本控制系统不一样，不是增加新增的文件，而是以内容为单位，将最新修改的内容，添加到一个临时的索引中，等待commit。
