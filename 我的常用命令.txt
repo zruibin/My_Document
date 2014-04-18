@@ -35,7 +35,10 @@ git add -A: [<path>]表示把<path>中所有tracked文件中被修改过或已�
 git add -i我们可以通过git add -i [<path>]命令查看<path>中被所有修改过或已删除文件但没有提交的文件，
 并通过其revert子命令可以查看<path>中所有untracted的文件，同时进入一个子命令系统
 
+git remote 不带参数，列出已经存在的远程分支
 git remote -v 这个命令可以显示对应项目的远程克隆地址。
+git remote add origin url 本地的当前的项目与远程的哪个仓库建立连接
+git remote remove <name> 删除远程克隆地址
 
 git branch 不带参数：列出本地已经存在的分支，并且在当前分支的前面加“*”号标记
 git branch -r 列出远程分支
