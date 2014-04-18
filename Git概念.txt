@@ -21,8 +21,15 @@ git diff temp 比较master分支和temp分支的不同
 git merge temp 合并temp分支到master分支
 git branch -d temp 如果该分支没有合并到主分支会报错，可以用以下命令强制删除git branch -D <分支名>
 
-git中，每次提交修改文件之前要add，然后再commit。git的add命令和许多版本控制系统不一样，不是增加新增的文件，而是以内容为单位，将最新修改的内容，添加到一个临时的索引中，等待commit。
-    实践发现，如果修改一个文件，然后diff查看修改，然后add，然后再修改，然后在commit
+git中，每次提交修改文件之前要add，然后再commit。git的add命令和许多版本控制系统不一样，不是增加新增的文件，而是以内容为单位，将最新修改的内容，添加到一个临时的索引中，等待commit。实践发现，如果修改一个文件，然后diff查看修改，然后add，然后再修改，然后在commit
+
+git add -u 表示 add to index only files modified or deleted and not those created 
+git add -u [<path>]: 把<path>中所有tracked文件中被修改过或已删除文件的信息添加到索引库。它不会处理untracted的文件。省略<path>表示.,即当前目录。
+
+git add -A: [<path>]表示把<path>中所有tracked文件中被修改过或已删除文件和所有untracted的文件信息添加到索引库。省略<path>表示.,即当前目录。
+git add -i我们可以通过git add -i [<path>]命令查看<path>中被所有修改过或已删除文件但没有提交的文件，并通过其revert子命令可以查看<path>中所有untracted的文件，同时进入一个子命令系统
+
+git remote -v 这个命令可以显示对应项目的远程克隆地址。
 
 
 
