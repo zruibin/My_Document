@@ -1,0 +1,96 @@
+我的常用
+git init        创建一个空的Git库。在当前目录中产生一个.git 
+git add dir1  （添加dir1这个目录，目录下的所有文件都被加入 ） 
+git add f1 f2 （ 添加f1，f2文件） 
+git add .      ( 添加当前目录下的所有文件和子目录 ) 
+git commit -m "Initial commit of gittutor reposistory"。 提交
+git status     查看版本库的状态
+git log        查看历史日志
+git diff       比较工作目录和Index中的代码
+
+git checkout local_branch 切换到某个已经建立的本地分支local_branch
+git checkout –b 新分支名
+git tag V3 5b888 //以后可以用V3来代替复杂的名称(5b888…)
+git show exp  //显示分支信息
+git  clone  git://github.com/someone/some_project.git   some_project 
+              //将'git://github.com/someone/some_project. git'这个URL地址的远程版本库，完全克隆到本地some_project目录下
+git push https://git.oschina.net/zruibin/me.git 将本地commit的代码更新到远程版本库中
+
+git fetch origin master:temp 这句命令的意思是：从远程的origin仓库的master分支下载到本地并新建一个分支temp
+git diff temp 比较master分支和temp分支的不同
+git merge temp 合并temp分支到master分支(当前所在的分支为master)
+git branch -d temp 如果该分支没有合并到主分支会报错，可以用以下命令强制删除git branch -D <分支名>
+
+git中，每次提交修改文件之前要add，然后再commit。git的add命令和许多版本控制系统不一样，不是增加新增的文件，而是以内容为单位，将最新修改的内容，添加到一个临时的索引中，等待commit。实践发现，如果修改一个文件，然后diff查看修改，然后add，然后再修改，然后在commit
+
+git add -u 表示 add to index only files modified or deleted and not those created 
+git add -u [<path>]: 把<path>中所有tracked文件中被修改过或已删除文件的信息添加到索引库。它不会处理untracted的文件。省略<path>表示.,即当前目录。
+
+git add -A: [<path>]表示把<path>中所有tracked文件中被修改过或已删除文件和所有untracted的文件信息添加到索引库。省略<path>表示.,即当前目录。
+git add -i我们可以通过git add -i [<path>]命令查看<path>中被所有修改过或已删除文件但没有提交的文件，并通过其revert子命令可以查看<path>中所有untracted的文件，同时进入一个子命令系统
+
+git remote -v 这个命令可以显示对应项目的远程克隆地址。
+
+git branch 不带参数：列出本地已经存在的分支，并且在当前分支的前面加“*”号标记
+git branch -r 列出远程分支
+git branch -a 列出本地分支和远程分支
+git branch 创建一个新的本地分支，需要注意，此处只是创建分支，不进行分支切换  #git branch newbranch2
+git branch -m | -M oldbranch newbranch 重命名分支，如果newbranch名字分支已经存在，则需要使用-M强制重命名，否则，使用-m进行重命名。
+git branch -d | -D branchname 删除branchname分支
+git branch -d -r branchname 删除远程branchname分支
+
+
+git tag列出当前现有的tag
+git tag -l <pattern>列出符合条件的tag。
+git tag -a your_version_tagname your_commit_sha1 -m "your commit message"添加tag。
+		"-a"表明是annotated类型的tag，可以保留一些相关的信息。不加"-a"表明是lightweight类型的tag，没有额外信息，仅仅是一个特定提交对象的引用。一般我们都使用"-a"选项。
+		"your_version_tagname"是你想要加的tag名字，如"v1.2"之类的。
+		"your_commit_sha1"是你在你多个历史提交中需要为某个提交打tag而不是为最近的一次提交打tag，可以加上那次提交的commit sha1值。
+		-m "your commit message"则是为这个tag添加说明。
+		在tag还没有被git push之前，你可以使用git tag -d your_version_tagname来删除它。
+		使用git push origin your_version_tagname来push这个tag到远程分支，也可以使用git push origin --tags一次性的推送所有本地新增的tag到远程分支。这样别人通过clone仓库或者同步数据之后也能看到这些tag。
+		push了tag之后就算tag打的不对也不应该再删除这些tag，而是重新再新增一个正确的tag。
+
+
+git merge b 将b分支合并到当前分支
+git cherry-pick 可以选择某一个分支中的一个或几个commit(s)来进行操作
+		假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。
+
+		# 先在v3.0中查看要合并的commit的commit id
+		git log
+		# 假设是 commit f79b0b1ffe445cab6e531260743fa4e08fb4048b
+
+		# 切到v2.0中
+		git check v2.0
+
+		# 合并commit
+		git cherry-pick f79b0b1ffe445cab6e531260743fa4e08fb4048b
+
+
+git checkout master     //取出master版本的head。
+git checkout tag_name    //在当前分支上 取出 tag_name 的版本
+git checkout  master file_name  //放弃当前对文件file_name的修改
+git checkout  commit_id file_name  //取文件file_name的 在commit_id是的版本。commit_id为 git commit 时的sha值。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
