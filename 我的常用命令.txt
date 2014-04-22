@@ -10,7 +10,11 @@ git diff       比较工作目录和Index中的代码
 
 git checkout local_branch 切换到某个已经建立的本地分支local_branch
 git checkout –b 新分支名
-git tag V3 5b888 //以后可以用V3来代替复杂的名称(5b888…)
+git checkout master     //取出master版本的head。
+git checkout tag_name    //在当前分支上 取出 tag_name 的版本
+git checkout  master file_name  //放弃当前对文件file_name的修改
+git checkout  commit_id file_name  //取文件file_name的 在commit_id是的版本。commit_id为 git commit 时的sha值。
+
 git show exp  //显示分支信息
 git  clone  git://github.com/someone/some_project.git   some_project 
               //将'git://github.com/someone/some_project. 
@@ -52,6 +56,7 @@ git branch -d -r branchname 删除远程branchname分支
 
 git tag列出当前现有的tag
 git tag -l <pattern>列出符合条件的tag。
+git tag V3 5b888 //以后可以用V3来代替复杂的名称(5b888…)
 git tag -a your_version_tagname your_commit_sha1 -m "your commit message"添加tag。
 		"-a"表明是annotated类型的tag，可以保留一些相关的信息。
 		不加"-a"表明是lightweight类型的tag，没有额外信息，仅仅是一个特定提交对象的引用。一般我们都使用"-a"选项。
@@ -79,12 +84,6 @@ git cherry-pick 可以选择某一个分支中的一个或几个commit(s)来进�
 
 		# 合并commit
 		git cherry-pick f79b0b1ffe445cab6e531260743fa4e08fb4048b
-
-
-git checkout master     //取出master版本的head。
-git checkout tag_name    //在当前分支上 取出 tag_name 的版本
-git checkout  master file_name  //放弃当前对文件file_name的修改
-git checkout  commit_id file_name  //取文件file_name的 在commit_id是的版本。commit_id为 git commit 时的sha值。
 
 
 
