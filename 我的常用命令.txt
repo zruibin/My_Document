@@ -68,6 +68,17 @@ git tag -a your_version_tagname your_commit_sha1 -m "your commit message"添加t
 		也可以使用git push origin -- tags一次性的推送所有本地新增的tag到远程分支。
 		这样别人通过clone仓库或者同步数据之后也能看到这些tag。
 		push了tag之后就算tag打的不对也不应该再删除这些tag，而是重新再新增一个正确的tag。
+		git推送tag到远端服务器
+默认情况下，git push并不会把tag标签传送到远端服务器上，只有通过显式命令才能分享标签到远端仓库。
+1.push单个tag，命令格式为：git push origin [tagname]
+例如：
+git push origin v1.0 #将本地v1.0的tag推送到远端服务器
+2.push所有tag，命令格式为：git push [origin] --tags
+例如：
+git push --tags
+或
+git push origin --tags
+注：上述命令运行后，如果其他人clone远端服务器代码或进行pull同步后，也会看到这些标签。
 
 
 git merge b 将b分支合并到当前分支
