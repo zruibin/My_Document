@@ -1,4 +1,4 @@
-我的常用
+﻿我的常用
 git init        创建一个空的Git库。在当前目录中产生一个.git 
 git add dir1  （添加dir1这个目录，目录下的所有文件都被加入 ） 
 git add f1 f2 （ 添加f1，f2文件） 
@@ -52,6 +52,11 @@ git branch -m | -M oldbranch newbranch 重命名分支，如果newbranch名字�
 										使用-m进行重命名。
 git branch -d | -D branchname 删除branchname分支
 git branch -d -r branchname 删除远程branchname分支
+git push origin branch_name  push本地分支代码到远端服务器
+git pull origin branch_name  pull远端分支代码到本地对应分支
+git push origin --delete branch_name  删除远程分支
+git merge origin/b  合并远程分支
+git merge b         合并本地分支
 
 
 git tag列出当前现有的tag
