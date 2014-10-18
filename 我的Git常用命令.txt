@@ -102,6 +102,11 @@ git cherry-pick 可以选择某一个分支中的一个或几个commit(s)来进�
 		git cherry-pick f79b0b1ffe445cab6e531260743fa4e08fb4048b
 
 
+ 提交代码的log里面会显示提交者的信息
+  git config --global user.name [username]
+  git config --global user.email [email]
+
+
 
 忽略文件.gitignore
 忽略文件规则:
