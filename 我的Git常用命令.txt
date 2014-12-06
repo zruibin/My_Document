@@ -133,8 +133,17 @@ F: 一条(行)忽略规则也可以只对单个文件有效(忽略单个指定�
 build/    #忽略build目录下的所有文件;
 doc/*.txt #只忽略doc/下所有的txt文件,但是不忽略doc/subdir/下的txt文件;
 
+查看提交历史git log,如  git log --name-status b3d76ee39d0a24132b0e7eed5b28085776990156
 
-
+-p 按补丁格式显示每个更新之间的差异。
+--stat 显示每次更新的文件修改统计信息。
+--shortstat 只显示 --stat 中最后的行数修改添加移除统计。
+--name-only 仅在提交信息后显示已修改的文件清单。
+--name-status 显示新增、修改、删除的文件清单。
+--abbrev-commit 仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。
+--relative-date 使用较短的相对时间显示（比如，“2 weeks ago”）。
+--graph 显示 ASCII 图形表示的分支合并历史。
+--pretty 使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。
 
 
 
