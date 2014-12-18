@@ -16,9 +16,6 @@ git checkout  master file_name  //放弃当前对文件file_name的修改
 git checkout  commit_id file_name  //取文件file_name的 在commit_id是的版本。commit_id为 git commit 时的sha值。
 
 git show exp  //显示分支信息
-git  clone  git://github.com/someone/some_project.git   some_project 
-              //将'git://github.com/someone/some_project. 
-              git'这个URL地址的远程版本库，完全克隆到本地some_project目录下
 git push https://git.oschina.net/zruibin/me.git 将本地commit的代码更新到远程版本库中
 
 git fetch origin master:temp 这句命令的意思是：从远程的origin仓库的master分支下载到本地并新建一个分支temp
@@ -159,7 +156,20 @@ git reset --hard：彻底回退到某个版本，本地的源码也会变为上�
 我要回到上一次提交的版本：git reset --hard
 
 
-
+git clone
+git clone git://github.com/someone/some_project.git   some_project 
+              //将'git://github.com/someone/some_project. 
+              git'这个URL地址的远程版本库，完全克隆到本地some_project目录下
+用法1：git clone <repository> <directory>
+	  将<repository>指向的版本库创建一个克隆到<directory>目录。目录<directory>相当于克隆版本库的工作区，文件都会检出，版本库位于工作区的.git目录中
+用法2：git clone --bare <repository> <directory.git>
+用法3：git clone --mirror <repository> <directory.git>
+	用法2和用法3创建的克隆版本库都不包含工作区，直接就是版本库的内容，这样的版本库称为裸版本库。一般约定俗成裸版本库的目录名以.git做后缀，
+	所以上面示例中将克隆出来的裸版本库目录名写作<directory.git>。区别在于用法3克隆出来的裸版本对上游版本库进行了注册，这样可以在裸版本库中使用git fetch命令和上游版本库进行持续同步。
+	不使用--bare或--mirror创建出来的克隆包含工作区，这样就会产生两个包含工作区的版本库，这两个版本库对等。
+	这两个工作区本质上没有区别，往往提交在一个版本A中进行，另一个B作为备份。
+	只能从B执行git pull命令从A中拉回新的提交实现版本库同步，而不能从版本库A向版本库B执行git push推送操作还可以通过git init的方式创建裸版本库，需要加--bare参数。
+	当执行git push命令时，如果没有设定推送的分支，而且当前分支也没有注册到远程的某个分支，将检查远程分支是否有和本地相同的分支名（如master），如果有，则推送，否则报错。
 
 
 
