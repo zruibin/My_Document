@@ -146,7 +146,17 @@ doc/*.txt #只忽略doc/下所有的txt文件,但是不忽略doc/subdir/下的tx
 --pretty 使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。
 
 
-
+git回到上一版本命令
+git reset是指将当前head的内容重置，不会留log信息。
+git reset HEAD filename  从暂存区中移除文件
+git reset --hard HEAD~3  会将最新的3次提交全部重置，就像没有提交过一样。
+git reset --hard commit (38679ed709fd0a3767b79b93d0fba5bb8dd235f8) 回退到 38679ed709fd0a3767b79b93d0fba5bb8dd235f8 版本
+根据--soft --mixed --hard，会对working tree和index和HEAD进行重置:
+git reset --mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容，此命令慎用！
+例如：我要彻底返回在上一次提交以前的版本。git reset --hrad HEAD~1
+我要回到上一次提交的版本：git reset --hard
 
 
 
