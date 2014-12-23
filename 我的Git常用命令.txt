@@ -153,8 +153,8 @@ git reset --mixed：此为默认方式，不带任何参数的git reset，即时
 git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
 git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容，此命令慎用！
 例如：我要彻底返回在上一次提交以前的版本。git reset --hrad HEAD~1
-我要回到上一次提交的版本：git reset --hard
-
+我要回到上一次提交的版本：git reset --hard 版本号
+强行回滚远程服务器：git push -f
 
 git clone
 git clone git://github.com/someone/some_project.git   some_project 
