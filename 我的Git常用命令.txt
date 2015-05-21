@@ -1,4 +1,4 @@
-﻿我的常用
+我的常用
 git init        创建一个空的Git库。在当前目录中产生一个.git 
 git add dir1  （添加dir1这个目录，目录下的所有文件都被加入 ） 
 git add f1 f2 （ 添加f1，f2文件） 
@@ -29,10 +29,10 @@ git中，每次提交修改文件之前要add，然后再commit。git的add命�
 
 git add -u 表示 add to index only files modified or deleted and not those created 
 git add -u [<path>]: 把<path>中所有tracked文件中被修改过或已删除文件的信息添加到索引库。它不会处理untracted的文件。
-					省略<path>表示.,即当前目录。
+                    省略<path>表示.,即当前目录。
 
 git add -A: [<path>]表示把<path>中所有tracked文件中被修改过或已删除文件和所有untracted的文件信息添加到索引库。
-					省略<path>表示.,即当前目录。
+                    省略<path>表示.,即当前目录。
 git add -i我们可以通过git add -i [<path>]命令查看<path>中被所有修改过或已删除文件但没有提交的文件，
 并通过其revert子命令可以查看<path>中所有untracted的文件，同时进入一个子命令系统
 
@@ -46,7 +46,7 @@ git branch -r 列出远程分支
 git branch -a 列出本地分支和远程分支
 git branch 创建一个新的本地分支，需要注意，此处只是创建分支，不进行分支切换  #git branch newbranch2
 git branch -m | -M oldbranch newbranch 重命名分支，如果newbranch名字分支已经存在，则需要使用-M强制重命名，否则，
-										使用-m进行重命名。
+                                        使用-m进行重命名。
 git branch -d | -D branchname 删除branchname分支
 git branch -d -r branchname 删除远程branchname分支
 git push origin branch_name  push本地分支代码到远端服务器
@@ -60,17 +60,17 @@ git tag列出当前现有的tag
 git tag -l <pattern>列出符合条件的tag。
 git tag V3 5b888 //以后可以用V3来代替复杂的名称(5b888…)
 git tag -a your_version_tagname your_commit_sha1 -m "your commit message"添加tag。
-		"-a"表明是annotated类型的tag，可以保留一些相关的信息。
-		不加"-a"表明是lightweight类型的tag，没有额外信息，仅仅是一个特定提交对象的引用。一般我们都使用"-a"选项。
-		"your_version_tagname"是你想要加的tag名字，如"v1.2"之类的。
-		"your_commit_sha1"是你在你多个历史提交中需要为某个提交打tag而不是为最近的一次提交打tag，可以加上那次提交的commit sha1值。
-		-m "your commit message"则是为这个tag添加说明。
-		在tag还没有被git push之前，你可以使用git tag -d your_version_tagname来删除它。
-		使用git push origin your_version_tagname来push这个tag到远程分支，
-		也可以使用git push origin -- tags一次性的推送所有本地新增的tag到远程分支。
-		这样别人通过clone仓库或者同步数据之后也能看到这些tag。
-		push了tag之后就算tag打的不对也不应该再删除这些tag，而是重新再新增一个正确的tag。
-		git推送tag到远端服务器
+        "-a"表明是annotated类型的tag，可以保留一些相关的信息。
+        不加"-a"表明是lightweight类型的tag，没有额外信息，仅仅是一个特定提交对象的引用。一般我们都使用"-a"选项。
+        "your_version_tagname"是你想要加的tag名字，如"v1.2"之类的。
+        "your_commit_sha1"是你在你多个历史提交中需要为某个提交打tag而不是为最近的一次提交打tag，可以加上那次提交的commit sha1值。
+        -m "your commit message"则是为这个tag添加说明。
+        在tag还没有被git push之前，你可以使用git tag -d your_version_tagname来删除它。
+        使用git push origin your_version_tagname来push这个tag到远程分支，
+        也可以使用git push origin -- tags一次性的推送所有本地新增的tag到远程分支。
+        这样别人通过clone仓库或者同步数据之后也能看到这些tag。
+        push了tag之后就算tag打的不对也不应该再删除这些tag，而是重新再新增一个正确的tag。
+        git推送tag到远端服务器
 默认情况下，git push并不会把tag标签传送到远端服务器上，只有通过显式命令才能分享标签到远端仓库。
 1.push单个tag，命令格式为：git push origin [tagname]
 例如：
@@ -85,18 +85,92 @@ git push origin --tags
 
 git merge b 将b分支合并到当前分支
 git cherry-pick 可以选择某一个分支中的一个或几个commit(s)来进行操作
-		假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，
-		这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。
+        假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，
+        这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。
 
-		# 先在v3.0中查看要合并的commit的commit id
-		git log
-		# 假设是 commit f79b0b1ffe445cab6e531260743fa4e08fb4048b
+        # 先在v3.0中查看要合并的commit的commit id
+        git log
+        # 假设是 commit f79b0b1ffe445cab6e531260743fa4e08fb4048b
 
-		# 切到v2.0中
-		git check v2.0
+        # 切到v2.0中
+        git check v2.0
 
-		# 合并commit
-		git cherry-pick f79b0b1ffe445cab6e531260743fa4e08fb4048b
+        # 合并commit
+        git cherry-pick f79b0b1ffe445cab6e531260743fa4e08fb4048b
+
+git rebase  有点类似git merge，但是两者又有不同，打个比方，你有两个抽屉A和B，里面都装了衣服，现在想把B中的衣服放到A中，
+                  git merge是那种横冲直撞型的，拿起B就倒入A里面，如果满了（冲突）再一并整理；而git rebase就很持家了，它会一件一件的从B往A中加，
+                  会根据一开始放入的时间顺序的来加，如果满了你可以处理这一件，你可以继续加，或者跳过这一件，又 或者不加了，把A还原。
+                  所以merge适合那种比较琐碎的，简单的合并，系统级的合并还是用rebase吧。
+
+                        专业的区别请移步到这里合并和衍合
+   
+                        # 合并b
+                        git rebase b
+
+                        # 处理完冲突继续合并
+                        git rebase –continue
+
+                        # 跳过
+                        git rebase –skip
+
+                        # 取消合并
+                        git rebase –abort
+
+            git rebase，顾名思义，就是重新定义（re）起点（base）的作用，即重新定义分支的版本库状态。
+            要搞清楚这个东西，要先看看版本库状态切换的两种情况：
+
+            我们知道，在某个分支上，我们可以通过git reset，实现将当前分支切换到本分支以前的任何一个版本状态，即所谓的“回溯”。
+            即实现了本分支的“后悔药”。也即版本控制系统的初衷。 还有另一种情况，当我们的项目有多个分支的时候。我们除了在本地开发的时候可能会“回溯”外，
+            也常常会将和自己并行开发的别人的分支修改添加到自 己本地来。这种情况下很常见。作为项目管理员，肯定会不断的合并各个子项目的补丁，
+            并将最新版本推送到公共版本库，而作为开发人员之一，提交自己的补丁之 后，往往需要将自己的工作更新到最新的版本库，
+            也就是说把别的分支的工作包含进来。
+            举个例子来说吧！假设我们的项目初期只有一个master分支，然后分支上作过两次提交。这个时候系统只有一个master分支，他的分支历史如下：
+
+            master0（初始化后的版本）
+            ||
+            v
+            master1（第一次提交后的版本）
+            ||
+            v
+            master2（第二次提交后的版本）
+
+            这个时候，我们可以通过git reset将master分支（工作目录、工作缓存或者是版本库）切换到master1或者master0版本，这就是前面所说的第一种情况。
+            假设我们这里把master分支通过git reset回溯到了master1状态。那么这个时候系统仍然只有一个master分支，分支的历史如下：
+
+            master0（初始化后的版本）
+            ||
+            v
+            master1（第一次提交后的版本）
+
+            然后，我们在这里以master1为起点，创建了另一个分支test。那么对于test分支来说，他的第一个版本test0就和master1是同一个版本，此时项目的分支历史如下：
+
+            master0（初始化后的版本）
+            ||
+            v
+            master1（第一次提交后的版本）===test0（test分支，初始化自master分支master1状态）
+
+            这个时候，我们分别对master分支、test分支作两次提交，此时版本库应该成了这个样子：
+
+            master0（初始化后的版本）
+            ||
+            v
+            master1===test0==>test1===>test2
+            ||
+            v
+            master2===>master3
+
+            这个时候，通过第一种git reset的方式，可以将master分支的当前状态（master3）回溯到master分支的master0、master1、master2状态。 
+            也可已将test分支当前状态（test2）回溯到test分支的test0、test1状态，以及test分支的父分支master的master0、 master1状态。
+            那么。如果我要让test分支从test0到test2之间所有的改变都添加到master分支来，使得master分支包含test分支的所有修改。这个时候就要用到git rebase了。
+            首先，我们切换到master分支，然后运行下面的命令，即可实现我们的要求：
+
+            git rebase test 这个时候，git做了些什么呢？先将test分支的代码checkout出来，作为工作目录
+            然后将master分支从test分支创建起的所有改变的补丁，依次打上。如果打补丁的过程没问题，rebase就搞定了
+            如果打补丁的时候出现了问题，就会提示你处理冲突。处理好了，可以运行git rebase –continue继续直到完成
+            如果你不想处理，你还是有两个选择，一个是放弃rebase过程（运行git rebase –abort），另一个是直接用test分支的取代当前分支的（git rebase –skip）。
+            此外，rebase还能够让你修订以前提交，这个功能日后再说。
+
 
 
  提交代码的log里面会显示提交者的信息
@@ -161,15 +235,15 @@ git clone git://github.com/someone/some_project.git   some_project
               //将'git://github.com/someone/some_project. 
               git'这个URL地址的远程版本库，完全克隆到本地some_project目录下
 用法1：git clone <repository> <directory>
-	  将<repository>指向的版本库创建一个克隆到<directory>目录。目录<directory>相当于克隆版本库的工作区，文件都会检出，版本库位于工作区的.git目录中
+      将<repository>指向的版本库创建一个克隆到<directory>目录。目录<directory>相当于克隆版本库的工作区，文件都会检出，版本库位于工作区的.git目录中
 用法2：git clone --bare <repository> <directory.git>
 用法3：git clone --mirror <repository> <directory.git>
-	用法2和用法3创建的克隆版本库都不包含工作区，直接就是版本库的内容，这样的版本库称为裸版本库。一般约定俗成裸版本库的目录名以.git做后缀，
-	所以上面示例中将克隆出来的裸版本库目录名写作<directory.git>。区别在于用法3克隆出来的裸版本对上游版本库进行了注册，这样可以在裸版本库中使用git fetch命令和上游版本库进行持续同步。
-	不使用--bare或--mirror创建出来的克隆包含工作区，这样就会产生两个包含工作区的版本库，这两个版本库对等。
-	这两个工作区本质上没有区别，往往提交在一个版本A中进行，另一个B作为备份。
-	只能从B执行git pull命令从A中拉回新的提交实现版本库同步，而不能从版本库A向版本库B执行git push推送操作还可以通过git init的方式创建裸版本库，需要加--bare参数。
-	当执行git push命令时，如果没有设定推送的分支，而且当前分支也没有注册到远程的某个分支，将检查远程分支是否有和本地相同的分支名（如master），如果有，则推送，否则报错。
+    用法2和用法3创建的克隆版本库都不包含工作区，直接就是版本库的内容，这样的版本库称为裸版本库。一般约定俗成裸版本库的目录名以.git做后缀，
+    所以上面示例中将克隆出来的裸版本库目录名写作<directory.git>。区别在于用法3克隆出来的裸版本对上游版本库进行了注册，这样可以在裸版本库中使用git fetch命令和上游版本库进行持续同步。
+    不使用--bare或--mirror创建出来的克隆包含工作区，这样就会产生两个包含工作区的版本库，这两个版本库对等。
+    这两个工作区本质上没有区别，往往提交在一个版本A中进行，另一个B作为备份。
+    只能从B执行git pull命令从A中拉回新的提交实现版本库同步，而不能从版本库A向版本库B执行git push推送操作还可以通过git init的方式创建裸版本库，需要加--bare参数。
+    当执行git push命令时，如果没有设定推送的分支，而且当前分支也没有注册到远程的某个分支，将检查远程分支是否有和本地相同的分支名（如master），如果有，则推送，否则报错。
 
 
 
