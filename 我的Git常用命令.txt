@@ -19,12 +19,16 @@ git checkout  commit_id file_name  //取文件file_name的 在commit_id是的版
 
 git show exp  //显示分支信息
 git push https://git.oschina.net/zruibin/me.git 将本地commit的代码更新到远程版本库中
+git remote add master //添加多个远程库，例：git remote add master https://github.com/zruibin/EMACScript_Conveting_Script
+git remote set-url --add master https://github.com/zruibin/EMACScript_Conveting_Script
+git push all --all //由于有多个远程库，提交时需要执行该命令
+git push -f origin master // origin 远程仓库名， master 分支名， -f 为force，意为：强行、强制。
 
 git fetch origin master:temp 这句命令的意思是：从远程的origin仓库的master分支下载到本地并新建一个分支temp
 git diff temp 比较master分支和temp分支的不同
 git merge temp 合并temp分支到master分支(当前所在的分支为master)
 git branch -d temp 如果该分支没有合并到主分支会报错，可以用以下命令强制删除git branch -D <分支名>
-
+I
 git中，每次提交修改文件之前要add，然后再commit。git的add命令和许多版本控制系统不一样，不是增加新增的文件，而是以内容为单位，
 将最新修改的内容，添加到一个临时的索引中，等待commit。实践发现，如果修改一个文件，然后diff查看修改，然后add，然后再修改，
 然后在commit
