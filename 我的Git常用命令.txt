@@ -28,7 +28,6 @@ git push -f origin master // origin 远程仓库名， master 分支名， -f �
 
 git fetch origin master:temp 这句命令的意思是：从远程的origin仓库的master分支下载到本地并新建一个分支temp
 git diff temp 比较master分支和temp分支的不同
-git merge temp 合并temp分支到master分支(当前所在的分支为master)
 git branch -d temp 如果该分支没有合并到主分支会报错，可以用以下命令强制删除git branch -D <分支名>
 I
 git中，每次提交修改文件之前要add，然后再commit。git的add命令和许多版本控制系统不一样，不是增加新增的文件，而是以内容为单位，
@@ -60,8 +59,11 @@ git branch -d -r branchname 删除远程branchname分支
 git push origin branch_name  push本地分支代码到远端服务器
 git pull origin branch_name  pull远端分支代码到本地对应分支
 git push origin --delete branch_name  删除远程分支
+
 git merge origin/b  合并远程分支
 git merge b         合并本地分支
+git merge temp 合并temp分支到master分支(当前所在的分支为master)
+                            合并完成后再执行git status，可以列出所有的合并，若有冲突的则在Unmerged paths中
 
 
 git tag列出当前现有的tag
@@ -91,7 +93,6 @@ git push origin --tags
 注：上述命令运行后，如果其他人clone远端服务器代码或进行pull同步后，也会看到这些标签。
 
 
-git merge b 将b分支合并到当前分支
 git cherry-pick 可以选择某一个分支中的一个或几个commit(s)来进行操作
         假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，
         这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。
