@@ -1,3 +1,5 @@
+http://git-scm.com/docs
+
 我的常用
 git init        创建一个空的Git库。在当前目录中产生一个.git 
 git add dir1  （添加dir1这个目录，目录下的所有文件都被加入 ） 
@@ -251,8 +253,17 @@ git clone git://github.com/someone/some_project.git   some_project
     只能从B执行git pull命令从A中拉回新的提交实现版本库同步，而不能从版本库A向版本库B执行git push推送操作还可以通过git init的方式创建裸版本库，需要加--bare参数。
     当执行git push命令时，如果没有设定推送的分支，而且当前分支也没有注册到远程的某个分支，将检查远程分支是否有和本地相同的分支名（如master），如果有，则推送，否则报错。
 
-
-
+git stash
+git stash 往堆栈推送一个新的储藏
+git stash save "work in progress for foo feature" 使用save可以对进度添加备注
+git stash list  查看现有的储藏
+git stash pop 恢复的是最近的一次改动
+git stash pop stash@{id}或者 git stash apply stash@{id}  通过git stash list查看stash列表，从中选择你想要pop的stash
+git stash drop <stash@{id}> 删除stash，如果不加stash编号，默认的就是删除最新的，也就是编号为0的那个，加编号就是删除指定编号的stash。
+git  stash clear 是清除所有stash
+git stash pop  与 git stash apply <stash@{id}> 的区别：
+        git stash pop stash@{id}命令会在执行后将对应的stash id 从stash list里删除，
+        而 git stash apply stash@{id} 命令则会继续保存stash id
 
 
 
