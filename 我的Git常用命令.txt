@@ -5,7 +5,6 @@ git init        创建一个空的Git库。在当前目录中产生一个.git
 git add dir1  （添加dir1这个目录，目录下的所有文件都被加入 ） 
 git add f1 f2 （ 添加f1，f2文件） 
 git add .      ( 添加当前目录下的所有文件和子目录 ) 
-git commit -m "Initial commit of gittutor reposistory"。 提交
 git status     查看版本库的状态
 git log        查看历史日志
 git diff       比较工作目录和Index中的代码
@@ -91,6 +90,17 @@ git push --tags
 或
 git push origin --tags
 注：上述命令运行后，如果其他人clone远端服务器代码或进行pull同步后，也会看到这些标签。
+
+
+git commit -m "Initial commit of gittutor reposistory"。 提交
+         commit message 写错了，如果还没有push到服务器，只是本地进行了commit，并且没有进行新的commit，只需要
+         git commit --amend;如果进行了新的commit，只需要git reset --soft xxx （xxx有问题那次提交的commit id），然后在进行
+         git commit就行，不过所有后面的提交都成为了一次提交;如果想保持每次提交独立的话，使用
+            git checkout -b tmp ^xxx
+            git cherry-pick xxx
+            git commit --amend
+            git cherry-pick <依次后面的提交id>
+        xxx还是有问题那次提交的commit id，单独建立tmp分支修改说明，然后将后面的提交一个一个的cherry-pick到新分支，然后删除掉旧的分支就可以了
 
 
 git cherry-pick 可以选择某一个分支中的一个或几个commit(s)来进行操作
