@@ -26,7 +26,6 @@ git push all --all //由于有多个远程库，提交时需要执行该命令
 git push -f origin master // origin 远程仓库名， master 分支名， -f 为force，意为：强行、强制。
 
 git fetch origin master:temp 这句命令的意思是：从远程的origin仓库的master分支下载到本地并新建一个分支temp
-git diff temp 比较master分支和temp分支的不同
 git branch -d temp 如果该分支没有合并到主分支会报错，可以用以下命令强制删除git branch -D <分支名>
 I
 git中，每次提交修改文件之前要add，然后再commit。git的add命令和许多版本控制系统不一样，不是增加新增的文件，而是以内容为单位，
@@ -36,11 +35,16 @@ git中，每次提交修改文件之前要add，然后再commit。git的add命�
 git add -u 表示 add to index only files modified or deleted and not those created 
 git add -u [<path>]: 把<path>中所有tracked文件中被修改过或已删除文件的信息添加到索引库。它不会处理untracted的文件。
                     省略<path>表示.,即当前目录。
-
 git add -A: [<path>]表示把<path>中所有tracked文件中被修改过或已删除文件和所有untracted的文件信息添加到索引库。
                     省略<path>表示.,即当前目录。
 git add -i我们可以通过git add -i [<path>]命令查看<path>中被所有修改过或已删除文件但没有提交的文件，
 并通过其revert子命令可以查看<path>中所有untracted的文件，同时进入一个子命令系统
+
+git diff temp 比较master分支和temp分支的不同,查看当前的工作目录与另外一个分支的差别
+git diff branch1 branch2 --stat  --stat 是显示文件列表, 否则是文件内容diff
+git diff test origin/xxx 对比获取远端库最新信息
+git diff HEAD -- ./lib  显示你当前工作目录下的lib目录与上次提交之间的差别(或者更准确的 说是在当前分支)
+git diff --stat 如果不是查看每个文件的详细差别，而是统计一下有哪些文件被改动，有多少行被改 动，就可以使用‘--stat' 参数
 
 git remote 不带参数，列出已经存在的远程分支
 git remote -v 这个命令可以显示对应项目的远程克隆地址。
