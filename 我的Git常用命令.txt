@@ -253,6 +253,7 @@ git reset --hard：彻底回退到某个版本，本地的源码也会变为上�
 我要回到上一次提交的版本：git reset --hard 版本号
 强行回滚远程服务器：git push -f
 
+
 git clone
 git clone git://github.com/someone/some_project.git   some_project 
               //将'git://github.com/someone/some_project. 
@@ -268,6 +269,7 @@ git clone git://github.com/someone/some_project.git   some_project
     只能从B执行git pull命令从A中拉回新的提交实现版本库同步，而不能从版本库A向版本库B执行git push推送操作还可以通过git init的方式创建裸版本库，需要加--bare参数。
     当执行git push命令时，如果没有设定推送的分支，而且当前分支也没有注册到远程的某个分支，将检查远程分支是否有和本地相同的分支名（如master），如果有，则推送，否则报错。
 
+
 git stash
 git stash 往堆栈推送一个新的储藏
 git stash save "work in progress for foo feature" 使用save可以对进度添加备注
@@ -281,6 +283,11 @@ git stash pop  与 git stash apply <stash@{id}> 的区别：
         而 git stash apply stash@{id} 命令则会继续保存stash id
 
 
-
+git archive
+git archive，对任意提交对应的目录树建立归档。
+git archive -o latest.zip HEAD，基于最新提交建立归档文件latest.zip
+git archive -o partial.tar HEAD src doc，只将目录src和doc建立到归档文件partial.tar中
+git archive --format=tar --prefix=1.0/ v1.0 | gzip > foo-1.0.tar.gz，基于里程碑v1.0建立归档，并且为归档中的文件添加目录前缀1.0
+git archive xxxx xxx代表SHA-1 Hash值
 
 
