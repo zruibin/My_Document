@@ -291,3 +291,13 @@ git archive --format=tar --prefix=1.0/ v1.0 | gzip > foo-1.0.tar.gz，基于里�
 git archive xxxx xxx代表SHA-1 Hash值
 
 
+git clean
+git clean 是从工作目录中移除没有track的文件. 通常的参数是git clean -df:
+              -d表示同时移除目录,-f表示force,因为在git的配置文件中, clean.requireForce=true,如果不加-f,clean将会拒绝执行.
+               -n 显示 将要 删除的文件和目录 ，-f 删除 文件，-df 删除 文件 和 目录
+
+
+
+
+
+
