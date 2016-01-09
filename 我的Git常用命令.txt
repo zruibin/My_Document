@@ -59,6 +59,8 @@ git branch -m | -M oldbranch newbranch 重命名分支，如果newbranch名字�
                                         使用-m进行重命名。
 git branch -d | -D branchname 删除branchname分支
 git branch -d -r branchname 删除远程branchname分支
+git branch --track [branch] [remote-branch] 新建一个分支，与指定的远程分支建立追踪关系
+git branch --set-upstream-to [remote-branch] 建立追踪关系，在现有分支与指定的远程分支之间
 git push origin branch_name  push本地分支代码到远端服务器
 git pull origin branch_name  pull远端分支代码到本地对应分支
 git push origin --delete branch_name  删除远程分支
