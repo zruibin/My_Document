@@ -1,0 +1,71 @@
+
+##Mac
+
+
+
+###tmux
+
+ctrl+b 输入
+
+后：
+
+% 左右分屏
+" 上下分屏
+
+→←↑↓ 方向键移动光标以选择面板
+
+x 删除当前分屏(显示y/n是否删除)
+q 显示面板编号
+
+ctrl+cmd+方向键 左右上下调整分屏的大小
+
+
+
+---
+
+
+###iTerm
+
+cmd+d  左右分屏
+cmd+shift+d  上下分屏
+调整分屏大小 需用鼠标调
+
+cmd+ [或] 选择分屏
+
+cmd+ t 新增tab
+cmd+ 方向键  选择tab
+cmd+shift+ [或] 选择tab
+
+cmd+w  关闭分屏或窗口
+
+
+---
+
+###vim
+
+`<F2><F3><F4><F5>` 插件快捷键
+
+ctrl+w后松开 方向键则选择面板
+
+:vsp 文件名  垂直分屏
+:sp 文件名  水平分屏
+
+:q 所在的分屏或vim关闭
+
+NERDTree  
+`Shift-R 进行手动刷新`
+
+缩进：
+`然后用 V 选择你要缩进的行数 再按 < 或 > 做缩进或退缩`
+`V（进入VISUAL模式），shift+g（选中整篇文本），然后 ＝ 对齐代码`
+
+操作：za，打开或关闭当前折叠；zM，关闭所有折叠；zR，打开所有折叠
+
+let mapleader=";"
+`<leader>cc，注释当前选中文本，如果选中的是整行则在每行首添加 //，如果选中一行的部分内容则在选中部分前后添加分别 /*、*/`
+`<leader>cu，取消选中文本块的注释。`
+`<leader>c<space> |NERDComToggleComment|`
+`<leader>cm |NERDComMinimalComment|`
+
+
+
