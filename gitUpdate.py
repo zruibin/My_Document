@@ -15,9 +15,7 @@ import os, re
 import subprocess
 import datetime
 
-fileHandle = open('gitUpdate.log', 'w')
 logList = []
-
 
 def log(string="", newline=True):
     if newline:
