@@ -34,7 +34,9 @@ def gitOperator(gitString, newline=True):
         log(line, newline)
 
 def gitOperatorCMD(parameterList):
-    res = subprocess.call(parameterList)
+    # res = subprocess.call(parameterList)
+    gitString = " ".join(parameterList)
+    gitOperator(gitString)
     pass
 
 def getBranchs():
