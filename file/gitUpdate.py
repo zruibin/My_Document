@@ -11,11 +11,18 @@
 
 """
 
-import os, re
+import os, re, json, sys
 import subprocess
 import datetime
 
 logList = []
+projects = []
+
+def logRecord():
+    with open('gitUpdate.log', 'w') as fileHandle:
+        for logStr in logList:
+            fileHandle.write(str(logStr))
+    pass
 
 def log(string="", newline=True):
     if newline:
@@ -29,7 +36,6 @@ def log(string="", newline=True):
 def gitOperator(gitString, newline=True):
     log(gitString)
     output = os.popen(gitString)
-    # operatorString = output.read()
     for line in output.readlines():
         log(line, newline)
 
@@ -38,6 +44,16 @@ def gitOperatorCMD(parameterList):
     gitString = " ".join(parameterList)
     gitOperator(gitString)
     pass
+
+def getGitUrl():
+    configPath = ".git/config"
+    content = ""
+    with open(configPath, "r") as fp:
+        content = fp.read()
+    urls = re.findall('url = (.+)', content)
+    if len(urls) > 0:
+        return urls[0]
+    return None
 
 def getBranchs():
     configPath = ".git/config"
@@ -83,11 +99,10 @@ def fetchAndUpdate(path):
         gitOperator(gitString)
         """
         pass
-
     os.chdir("../")
     pass
 
-def dirWalk(DIR):
+def dirWalk(DIR, actionFunction):
     dirList = os.listdir(DIR)
     dirList = sorted(dirList)
     log("总共项目个数：" + str(len(dirList)))
@@ -98,28 +113,83 @@ def dirWalk(DIR):
             if os.path.exists(gitDirectory):
                 log("-" * 80)
                 log(gitDirectory)
-                fetchAndUpdate(directory)
+                actionFunction(directory)
     pass
 
-
-if __name__ == '__main__':
+def updateProject():
     begin = datetime.datetime.now()
     log("更新时间：" + str(begin))
-    dirWalk(".")
+    dirWalk(".", fetchAndUpdate)
     end = datetime.datetime.now()
     log("-" * 80)
     log(('花费时间: %.3f 秒' % (end - begin).seconds))
 
-    # print(logList)
-    with open('gitUpdate.log', 'w') as fileHandle:
-        for logStr in logList:
-            fileHandle.write(str(logStr))
+    logRecord()
+    pass
 
-    # os.chdir("./antlr4")
-    # os.system("git fetch origin master:temp")
-    # output = os.popen("git fetch origin master:temp")
-    # operatorString = output.read()
-    # print operatorString
+# ------------------------------------------------------------------------------
+
+def backupForJson(directory):
+    os.chdir(directory)
+    branchs = getBranchs()
+    projectName = str(directory)
+    log("Project Name:" + projectName)
+    log("Project Branchs:" + ",".join(branchs))
+    url = getGitUrl()
+    log("Project Url: " + str(url))
+
+    project = {
+        "name":projectName,
+        "url":str(url),
+        "branchs":branchs
+    }
+    projects.append(project)
+    os.chdir("../")
+    pass
+
+def backupProject():
+    dirWalk(".", backupForJson)
+    with open('projects.json', 'w', encoding='utf-8') as fileHandle:
+        jsonStr = json.dumps(projects, indent=4)
+        fileHandle.write(str(jsonStr))
+    pass
+
+def cloneProject():
+    with open('projects.json', 'r', encoding='utf-8') as fileHandle:
+        jsonStr = fileHandle.read()
+        projects = json.loads(jsonStr)
+        # log(projects)
+    begin = datetime.datetime.now()
+    for project in projects:
+        log("-" * 80)
+        projectName = project["name"]
+        projectUrl = project["url"]
+        branchs = project["branchs"]
+        log("project name: " + projectName)
+        log("project url: " + projectUrl)
+        log("project branchs: " + ",".join(branchs))
+        gitOperatorCMD(["git", "clone", projectUrl, projectName])
+        os.chdir(projectName)
+        for branch in branchs:
+            gitOperatorCMD(["git", "checkout", "-b", branch, "--track", "origin/"+str(branch)])
+        os.chdir("../")
+    log("-" * 80)
+    end = datetime.datetime.now()
+    log(('clone花费时间: %.3f 秒' % (end - begin).seconds))
+    logRecord()
+    pass
+
+
+# ------------------------------------------------------------------------------
+
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        updateProject()
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "clone":
+            cloneProject()
+        elif sys.argv[1] == "backup":
+            backupProject()
     pass
 
 
