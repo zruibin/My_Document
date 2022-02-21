@@ -34,6 +34,7 @@ alias python='python3'
 alias pip='pip3'
 ```
 
+---
 
 ### VS Code
 
@@ -59,6 +60,7 @@ alias pip='pip3'
     "editor.minimap.enabled": false,
     "window.newWindowDimensions": "inherit",
     "workbench.colorTheme": "Xcode 11 Default Light",
+    "workbench.list.keyboardNavigation": "filter", //按Cmd-Shift-E来获得Explorer焦点
     // "workbench.colorCustomizations": {
     //     "editorRuler.foreground":"#ff0000"
     //  },
@@ -70,7 +72,7 @@ alias pip='pip3'
 * https://marketplace.visualstudio.com/items?itemName=arzg.xcode-theme
 * https://marketplace.visualstudio.com/items?itemName=arc0re.theme-xcode-midnight
 
-
+---
 
 ### Sublime Text
 
