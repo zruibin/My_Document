@@ -179,6 +179,19 @@ def cloneProject():
     logRecord()
     pass
 
+def help():
+    helpStr = """
+Command:
+    update  更新仓库
+    clone   根据projects.json文件来克隆仓库
+    backup  将现有的仓库信息备份到projects.json
+    help    说明
+Default:
+    update
+    """
+    print(helpStr)
+    pass
+
 
 # ------------------------------------------------------------------------------
 
@@ -190,6 +203,10 @@ if __name__ == '__main__':
             cloneProject()
         elif sys.argv[1] == "backup":
             backupProject()
+        elif sys.argv[1] == "help" or sys.argv[1] == "-h":
+            help()
+        elif sys.argv[1] == "update":
+            updateProject()
     pass
 
 
