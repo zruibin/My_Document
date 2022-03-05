@@ -1726,11 +1726,9 @@ def Error(filename, linenum, category, confidence, message):
         sys.stderr.write('# %s:%s:  "%s"  [%s] [%d]\n' % (
             filename, linenum, message, category, confidence))
     else:
-      #before: %s:%s:  %s  [%s] [%d]\n
-      final_message = '%s:%s:  %s  [%s] [%d]' % (
+      final_message = '%s:%s:  %s  [%s] [%d]\n' % (
           filename, linenum, message, category, confidence)
-      # sys.stderr.write(final_message)
-      print(final_message) #change by ruibin.chow 2022/03/04
+      sys.stderr.write(final_message)
 
 # Matches standard C++ escape sequences per 2.13.2.3 of the C++ standard.
 _RE_PATTERN_CLEANSE_LINE_ESCAPES = re.compile(
@@ -6903,6 +6901,15 @@ def main():
     sys.stderr = backup_err
 
   sys.exit(_cpplint_state.error_count > 0)
+
+
+
+def get_cpplint_state():
+  """
+  Create By Ruibin.Chow in 2022/03/05
+  """
+  return _cpplint_state;
+
 
 
 if __name__ == '__main__':

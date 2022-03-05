@@ -24,6 +24,7 @@ allownonascii=$(git config --type=bool hooks.allownonascii)
 # Redirect output to stderr.
 exec 1>&2
 
+cppcheck=./cppcheck.py
 cpplint=./cpplint.py
 sum=0
 filters='-whitespace/line_length,-build/include'
@@ -36,9 +37,10 @@ for file in $(git diff-index --name-status $against --);  do
 		if [ -f "$file" ] 
 		then
 		 	# echo "$file found."
-			$cpplint --filter=$filters --headers=$headers $file
-    	sum=$(expr ${sum} + $?)
-    	echo " "
+			# $cpplint --filter=$filters --headers=$headers $file
+			$cppcheck $file
+    		sum=$(expr ${sum} + $?)
+    		echo " "
 		fi
 done
     
