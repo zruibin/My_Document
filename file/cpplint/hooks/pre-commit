@@ -24,23 +24,26 @@ allownonascii=$(git config --type=bool hooks.allownonascii)
 # Redirect output to stderr.
 exec 1>&2
 
-cppcheck=./cppcheck.py
-cpplint=./cpplint.py
 sum=0
-filters='-whitespace/line_length,-build/include'
-headers='h,hpp,c,cc,cpp'
+lint=./lint/lint.py
+# cpplint=./cpplint.py
+# filters='-whitespace/line_length,-build/include'
+# headers='h,hpp,c,cc,cpp'
 
 #| grep -E '\.[ch](pp|c)?$' | awk '{print $2}'
         
 # for cpp
 for file in $(git diff-index --name-status $against --);  do
-		if [ -f "$file" ] 
-		then
+		if [ -f "$file" ]; then
 		 	# echo "$file found."
 			# $cpplint --filter=$filters --headers=$headers $file
-			$cppcheck $file
-    		sum=$(expr ${sum} + $?)
-    		echo " "
+			$lint $file
+			count=$? # $?是上一指令的返回值
+    		sum=$(expr ${sum} + $count)
+
+    		if [ $count -eq 1 ]; then
+    			echo " " 
+    		fi
 		fi
 done
     

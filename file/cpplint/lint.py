@@ -8,17 +8,23 @@
 # 
 
 """
-$cpplint --filter=$filters --headers=$headers --exclude=no $file
+
 """
 
-import os, os.path
+import os, os.path, shutil
 import subprocess
 import datetime
 import codecs, sys
 from cpplint import *
 
+rootDir = "src" # 工程源码根目录
+lintDir = "lint" # lint脚本目录
+gitDir = ".git"
+
 logList = []
 includeSuffixs = ["c", "cc", "cpp", "h", "hpp"]
+excludeDirs = [gitDir, lintDir]
+
 
 
 def logRecord():
@@ -47,25 +53,25 @@ def operatorCMD(parameterList):
     operator(string, False)
     pass
 
+def ignoreDirectory(path, ignoreDirs):
+    ignore = False
+    for ignoreDir in ignoreDirs:
+        if ignoreDir in path:
+            ignore = True
+    return ignore
 
-def dirWalk(DIR, exIncludeDirs=[]):
+
+def dirWalk(DIR, excludeDirs=[]):
     """返回指定目录下所有文件的集合，exIncludeDirs的目录不包含"""
     array = []
     for root, dirs, files in os.walk(DIR):
         for file in files:
             fullFile = os.path.join(root, file)
             path = os.path.dirname(fullFile)
-
-            isPass = False
-            for exIncludeDir in exIncludeDirs:
-                if exIncludeDir in path:
-                    isPass = True
-
-            if not isPass:
-                # log(path)
-                # log(file)
-                # log(fullFile)
-                array.append(fullFile)
+            # ignore = ignoreDirectory(path, excludeDirs)
+            # if ignore:
+            #     continue
+            array.append(fullFile)
     return array
 
 def filtingFileSuffix(fileList, suffixList=[]):
@@ -87,8 +93,12 @@ def lintCMD(file):
             "--filter=-whitespace/line_length,-build/include", 
             "--output=emacs", 
             "--headers="+(",".join(includeSuffixs)),
-            file
         ]
+    if len(rootDir) > 0:
+        cmd.append("--root=" + rootDir)
+    for directory in excludeDirs:
+        cmd.append("--exclude=" + directory)
+    cmd.append(file)
     return cmd
 
 
@@ -153,13 +163,13 @@ def isOCHeader(filePath):
     else:
         return False
 
+
+
 def default():
     # begin = datetime.datetime.now()
     # log("更新时间：" + str(begin))
-    directory = "./"
-    exIncludeDirs = [".git"] # , "a/bb", "no"
-
-    fileList = dirWalk(directory, exIncludeDirs)
+    directory = rootDir
+    fileList = dirWalk(directory, excludeDirs)
     fileList = filtingFileSuffix(fileList, includeSuffixs)
 
     for file in fileList:
@@ -176,8 +186,33 @@ def default():
 def lintFile(file):
     if isOCHeader(file):
         return
+    # if ignoreDirectory(file, excludeDirs):
+    #     return
+    suffix = file.split(".")[-1]
+    if suffix not in includeSuffixs:
+        return
     lint(lintCMD(file), False)
     sys.exit(get_cpplint_state().error_count > 0)
+
+
+def checkGitPreCommit():
+    """检查并创建提交检查软链接"""
+    hooksName = "hooks"
+
+    # 必须是绝对路径
+    absSrcDir = os.path.abspath(os.path.join(lintDir, hooksName))
+    absDstDir = os.path.abspath(os.path.join(gitDir, hooksName))
+    if os.path.islink(absDstDir):
+        log("is exists hooks link!")
+        return
+    if os.path.exists(absDstDir):
+        shutil.move(absDstDir, 
+            os.path.abspath(os.path.join(gitDir, "hooks_bak")))
+
+    log(absSrcDir)
+    log(absDstDir)
+    os.symlink(absSrcDir, absDstDir)
+    pass
 
 
 
@@ -185,7 +220,10 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         default()
     else:
-        lintFile(sys.argv[1])
+        if sys.argv[1] == "--check":
+            checkGitPreCommit()
+        else:
+            lintFile(sys.argv[1])
     pass
 
 
