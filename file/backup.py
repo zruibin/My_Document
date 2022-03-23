@@ -1,22 +1,16 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*- 
 #
 # backup.py
 #
-# Created by zhouruibin734 on 2019/08/01.
-# Copyright (c) 2019年 zhouruibin734 All rights reserved.
+# Created by ruibin.chow on 2019/08/01.
+# Copyright (c) 2019年 Ruibin.Chow All rights reserved.
 # 
 
-import re, urllib, urllib2, os.path, datetime, shutil, urlparse
+import re, urllib.request, os.path, datetime, shutil
 import codecs, glob, os, re, subprocess, sys
 import html2text
 
-""" 
-问题
-UnicodeDecodeError: 'ascii' codec can't decode byte 0xe5 in position 1: ordinal not in range(128) 
-"""
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 HEADER_TEXT = """ 
 <!--BEGIN_DATA
@@ -123,7 +117,7 @@ artileDate = ""
 
 def downloadIMG(content, urlPath):
     """下载图片"""
-    print "下载图片"
+    print("下载图片")
 
     content = convert_character(content, '?wx_fmt=png', '')
     content = convert_character(content, '?wx_fmt=jpeg', '')
@@ -138,7 +132,7 @@ def downloadIMG(content, urlPath):
     if os.path.exists(backupDir) == False:
         os.mkdir(backupDir) 
     
-    print "照片时间：" + fileNameTimeStr
+    print("照片时间：" + fileNameTimeStr)
     index = 0
     for img in lists:
         ignore = img.find('?')
@@ -169,9 +163,9 @@ def downloadIMG(content, urlPath):
         content = convert_character(content, imgIgnore, fileName)
         path = fileName
         try:
-            print '图片开始下载: ' + str(imgIgnore)
-            print '图片下载位置: ' + path
-            # # print '文件下载中......'
+            print('图片开始下载: ' + str(imgIgnore))
+            print('图片下载位置: ' + path)
+            # # print('文件下载中......')
             # urllib.urlretrieve(imgIgnore, path, callbackfunc)
             if imgIgnore.startswith("./"):
                 shutil.copyfile(imgIgnore, path)
@@ -180,20 +174,14 @@ def downloadIMG(content, urlPath):
                     imgIgnore = "https:" + imgIgnore
                 if imgIgnore.startswith("/"):
                     imgIgnore =  urlPath + imgIgnore
-                print '图片最终下载地址: ' + str(imgIgnore)
-                imageFile = urllib2.urlopen(imgIgnore) 
+                print('图片最终下载地址: ' + str(imgIgnore))
+                imageFile = urllib.request.urlopen(imgIgnore) 
                 with open(path, "wb") as code:
                     code.write(imageFile.read())
-        # except urllib2.URLError, err:
-        #     if err.code == 404:
-        #         res = urlparse.urlparse(urlPath)
-        #         urlPath = res.scheme + "://" + res.netloc
-        #     else:
-        #         print err
-        except Exception, e:
-            print '文件下载错误: ' + str(imgIgnore) + ' 原因:' + str(e)
+        except Exception as e:
+            print('文件下载错误: ' + str(imgIgnore) + ' 原因:' + str(e))
         finally:
-            print '文件下载结束: '+str(imgIgnore)
+            print('文件下载结束: '+str(imgIgnore))
 
     return content
 
@@ -206,7 +194,7 @@ def callbackfunc(blocknum, blocksize, totalsize):
     percent = 100.0 * blocknum * blocksize / totalsize
     if percent > 100:
         percent = 100
-    # print "文件下载:%.2f%%"% percent
+    # print("文件下载:%.2f%%"% percent)
 
 def convert_character(string, origin_string, replace_string):
     """用指定的字符替换文本中指定的字符"""
@@ -216,22 +204,22 @@ def convert_character(string, origin_string, replace_string):
 
 def responseData(url):
     """请求数据"""
-    print "请求数据"
+    print("请求数据")
     html = ''
     try:
-      request = urllib2.Request(url)
-      request.add_header('User-Agent','Mozilla/5.0 (Windows NT 5.2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30') 
-      response = urllib2.urlopen(request)
-      html = response.read()
-    except urllib2.HTTPError, e:
-        print e.code
-        print "请求数据error: " + e
-    except Exception, e:
-        print e
+        headers = {"User-Agent":"Mozilla/5.0 (Windows NT 5.2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30 "}
+        request = urllib.request.Request(url, headers = headers)
+        response = urllib.request.urlopen(request)
+        html = response.read()
+    except urllib.request.HTTPError as e:
+        print(e.code)
+        print("请求数据error: " + e)
+    except Exception as e:
+        print(e)
     finally:
         pass
-        # html = html.decode('GBK').encode('UTF-8')
-    print "请求数据完成"
+        html = html.decode("UTF-8")
+    print("请求数据完成")
     return html
 
 def writeContentToFile(fileName, content, mode='w'):
@@ -251,7 +239,7 @@ def getTheFileContent(fileName):
 def getAllFileInDirBeyoundTheDir(DIR, beyoundDir=''):
     """返回指定目录下所有文件的集合，beyoundDir的目录不包含"""
     array = []
-    print DIR+beyoundDir
+    print(DIR+beyoundDir)
     for root, dirs, files in os.walk(DIR):
         if len(beyoundDir) != 0 and os.path.exists(DIR+beyoundDir):
             if beyoundDir not in dirs:
@@ -275,40 +263,41 @@ def convertFiles(DIR):
 
 def Main(url):
     url = url.lstrip().rstrip()
-    # html = responseData(url)
-    html = getTheFileContent("./data.html")
+    html = responseData(url)
+    # html = getTheFileContent("./data.html")
     
     title = re.findall(r"<title>.*</title>", html)
     if len(title) > 0:
         title = title[0]
         title = convert_character(title, '<title>', '')
         title = convert_character(title, '</title>', '')
-        print "标题: " + title
+        print("标题: " + title)
 
     content = extract(html)
     content = downloadIMG(content, url)
-    print "#" * 100
-    print content
-    
-    print "开始转为markdown"
+    print("#" * 100)
+    # print(content)
+
+    print("开始转为markdown")
     content = html2text.html2text(content)
 
     content = convert_character(content, '# ', '## ')
-    # content = convert_character(content, '## ', '### ')
+    content = convert_character(content, ' ', ' ')
 
     header = HEADER_TEXT % (artileDate, artileDate, url, title)
     content = header + '\n' + content
     writeContentToFile('temp.md', content)
-    print "转换完成！"
+    print("转换完成！")
+
     pass
 
 if __name__ == '__main__':
-    artileDate = "2022-01-24 20:00"
-    fileNameTimeStr = "20220124-200000"
+    artileDate = "2022-01-28 22:22"
+    fileNameTimeStr = "20220128-222200"
     # artileDate = datetime.datetime.now().strftime('%Y-%m-%d %H:%M');
     # fileNameTimeStr = datetime.datetime.now().strftime("%Y%m%d-%H%M%S");
     url = """
-https://mp.weixin.qq.com/s/YWwTxzxAJKk5tAYGGqSwLw
+https://mp.weixin.qq.com/s/Q3ILLSKj2kLIcDgEoIE71g
 """
     Main(url)
     pass

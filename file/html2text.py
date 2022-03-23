@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """html2text: Turn HTML into equivalent Markdown-structured text."""
 __version__ = "3.200.3"
 __author__ = "Aaron Swartz (me@aaronsw.com)"
@@ -7,6 +7,9 @@ __contributors__ = ["Martin 'Joey' Schulze", "Ricardo Reyes", "Kevin Jay North"]
 
 # TODO:
 #   Support decoded entities with unifiable.
+# FIX:
+#   Support python3 by ruibin.chow in 2022/3/23
+
 
 try:
     True
@@ -92,8 +95,8 @@ for k in unifiable.keys():
 def onlywhite(line):
     """Return true if the line does only consist of whitespace characters."""
     for c in line:
-        if c is not ' ' and c is not '  ':
-            return c is ' '
+        if c != ' ' and c != '  ':
+            return c == ' '
     return line
 
 def hn(tag):
@@ -604,7 +607,7 @@ class HTML2Text(HTMLParser.HTMLParser):
                 if not self.list:
                     bq += "    "
                 #else: list content is already partially indented
-                for i in xrange(len(self.list)):
+                for i in range(len(self.list)):
                     bq += "    "
                 data = data.replace("\n", "\n"+bq)
 
