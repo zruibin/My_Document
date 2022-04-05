@@ -105,23 +105,24 @@ def fetchAndUpdate(path):
 def dirWalk(DIR, actionFunction):
     dirList = os.listdir(DIR)
     dirList = sorted(dirList)
-    log("总共项目个数：" + str(len(dirList)))
+    count = 0
     for directory in dirList:
-        # print directory
         if os.path.isdir(directory):
             gitDirectory = directory + "/.git"
             if os.path.exists(gitDirectory):
+                count = count + 1
                 log("-" * 80)
                 log(gitDirectory)
                 actionFunction(directory)
-    pass
+    return count
 
 def updateProject():
     begin = datetime.datetime.now()
     log("更新时间：" + str(begin))
-    dirWalk(".", fetchAndUpdate)
+    count = dirWalk(".", fetchAndUpdate)
     end = datetime.datetime.now()
     log("-" * 80)
+    log("总共项目个数：" + str(count))
     log(('花费时间: %.3f 秒' % (end - begin).seconds))
 
     logRecord()
