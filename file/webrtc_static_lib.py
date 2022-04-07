@@ -151,6 +151,22 @@ shutil.copytree(webRTCLib, dstDir)
 print("Copy WebRTC.framework done.")
 """
 
+"""
+.gclient
+
+solutions = [
+  {
+    "name": "src",
+    "url": "https://webrtc.googlesource.com/src.git",
+    "deps_file": "DEPS",
+    "managed": False,
+    "custom_deps": {},
+  },
+]
+target_os = ["ios", "mac", "linux", "android", "win"]
+
+不同平台target_os不同。
+"""
 
 
 
