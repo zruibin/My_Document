@@ -293,8 +293,8 @@ def Main(url):
 
 if __name__ == '__main__':
     artileDate = "2022-03-02 20:00"
-    artileDate = datetime.datetime.strptime(artileDate, "%Y-%m-%d %H:%M")
-    fileNameTimeStr = artileDate.strftime("%Y%m%d-%H%M%S")
+    artileDateObj = datetime.datetime.strptime(artileDate, "%Y-%m-%d %H:%M")
+    fileNameTimeStr = artileDateObj.strftime("%Y%m%d-%H%M")
 
     url = """
 https://worktile.com/kb/p/5801
