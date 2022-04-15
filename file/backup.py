@@ -292,12 +292,12 @@ def Main(url):
     pass
 
 if __name__ == '__main__':
-    artileDate = "2022-01-28 22:22"
-    fileNameTimeStr = "20220128-222200"
-    # artileDate = datetime.datetime.now().strftime('%Y-%m-%d %H:%M');
-    # fileNameTimeStr = datetime.datetime.now().strftime("%Y%m%d-%H%M%S");
+    artileDate = "2022-03-02 20:00"
+    artileDate = datetime.datetime.strptime(artileDate, "%Y-%m-%d %H:%M")
+    fileNameTimeStr = artileDate.strftime("%Y%m%d-%H%M%S")
+
     url = """
-https://mp.weixin.qq.com/s/Q3ILLSKj2kLIcDgEoIE71g
+https://worktile.com/kb/p/5801
 """
     Main(url)
     pass
