@@ -43,7 +43,7 @@ alias pip='pip3'
 ```
 // 将设置放入此文件中以覆盖默认设置
 {
-    "workbench.iconTheme": "vscode-icons",
+    "workbench.iconTheme": "material-icon-theme",
     "editor.rulers": [80],
     "vim.disableAnnoyingNeovimMessage": true,
     "extensions.ignoreRecommendations": true,
@@ -67,8 +67,10 @@ alias pip='pip3'
     ],
     "vsicons.dontShowNewVersionMessage": true,
     "window.newWindowDimensions": "inherit",
+    "editor.fontSize": 13,
     "editor.minimap.enabled": false,
     "editor.fontFamily": "Consolas, Menlo, Monaco, 'Courier New', monospace",
+    "editor.renderIndentGuides": false,
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.fontWeightBold": "normal",
     "terminal.integrated.cursorStyle": "line",
