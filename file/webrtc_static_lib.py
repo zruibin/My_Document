@@ -130,6 +130,9 @@ https://www.cnblogs.com/ngxianyu/p/11412612.html
 
 gn gen out/arm64_libs_xcode --args='target_os="ios" ios_enable_code_signing=false is_component_build=false rtc_include_tests=false is_debug=false target_environment="device" target_cpu="arm64" ios_deployment_target="9.0" rtc_libvpx_build_vp9=false enable_ios_bitcode=false use_goma=false rtc_enable_objc_symbol_export=true enable_dsyms=true enable_stripping=true' --ide=xcode
 
+Debug: 去掉enable_stripping=true，不然断点不生效！若使用typeid则需要加上use_rtti=true。is_debug=true会有线程问题！！！
+gn gen out/arm64_libs_xcode --args='target_os="ios" ios_enable_code_signing=false is_component_build=false rtc_include_tests=false is_debug=false target_environment="device" target_cpu="arm64" ios_deployment_target="9.0" rtc_libvpx_build_vp9=false enable_ios_bitcode=false use_goma=false rtc_enable_objc_symbol_export=true enable_dsyms=true use_rtti=true' --ide=xcode
+
 gn gen out/mac_libs --args='target_os="mac" target_cpu="arm64" use_rtti=true proprietary_codecs=true rtc_include_tests=false is_debug=false enable_dsyms=true rtc_build_tools=false rtc_build_examples=false'
 //use_custom_libcxx=false ???
 """
