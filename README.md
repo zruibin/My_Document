@@ -47,7 +47,6 @@ alias pip='pip3'
     "editor.rulers": [80],
     "vim.disableAnnoyingNeovimMessage": true,
     "extensions.ignoreRecommendations": true,
-    "workbench.colorTheme": "Xcode 11 Default Light",
     "files.exclude": {
         "**/.DS_Store": true,
         "**/.git": true,
@@ -67,10 +66,9 @@ alias pip='pip3'
     ],
     "vsicons.dontShowNewVersionMessage": true,
     "window.newWindowDimensions": "inherit",
-    "editor.fontSize": 13,
+    "editor.fontSize": 14,
     "editor.minimap.enabled": false,
     "editor.fontFamily": "Consolas, Menlo, Monaco, 'Courier New', monospace",
-    "editor.renderIndentGuides": false,
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.fontWeightBold": "normal",
     "terminal.integrated.cursorStyle": "line",
@@ -133,6 +131,12 @@ alias pip='pip3'
         // "focusBorder": "#5b99fc36"
     },
     "security.workspace.trust.untrustedFiles": "open",
+    "editor.guides.indentation": false,
+    "update.mode": "none",
+    "workbench.colorTheme": "Xcode 11 Default Light",
+    "editor.showDeprecated": false,
+    "C_Cpp.errorSquiggles": "Disabled",
+    "C_Cpp.intelliSenseEngine": "disabled",
 }
 ```
 
