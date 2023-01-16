@@ -134,12 +134,18 @@ def downloadIMG(content, urlPath):
     
     print("照片时间：" + fileNameTimeStr)
     index = 0
+    alreadDownloadImages = []
     for img in lists:
         ignore = img.find('?')
         imgIgnore = img
         if ignore != -1:
             imgIgnore = img[0:ignore]
             # content = convert_character(content, img, imgIgnore)
+
+        if imgIgnore in alreadDownloadImages:
+            print('跳过图片已存在: ' + str(imgIgnore))
+            continue
+        alreadDownloadImages.append(imgIgnore)
       
         fileName = ""
         
@@ -162,6 +168,7 @@ def downloadIMG(content, urlPath):
         fileName = backupDir + fileName
         content = convert_character(content, imgIgnore, fileName)
         path = fileName
+
         try:
             print('图片开始下载: ' + str(imgIgnore))
             print('图片下载位置: ' + path)
@@ -276,7 +283,7 @@ def Main(url):
     content = extract(html)
     content = downloadIMG(content, url)
     print("#" * 100)
-    # print(content)
+    print(content)
 
     print("开始转为markdown")
     content = html2text.html2text(content)
@@ -292,12 +299,12 @@ def Main(url):
     pass
 
 if __name__ == '__main__':
-    artileDate = "2022-03-02 20:00"
+    artileDate = "2022-12-18 20:53"
     artileDateObj = datetime.datetime.strptime(artileDate, "%Y-%m-%d %H:%M")
     fileNameTimeStr = artileDateObj.strftime("%Y%m%d-%H%M")
 
     url = """
-https://worktile.com/kb/p/5801
+https://zhuanlan.zhihu.com/p/493489524
 """
     Main(url)
     pass
