@@ -125,17 +125,28 @@ def downloadIMG(content, urlPath):
     # content = convert_character(content, 'png alt></p>', 'png"></p>')
     # content = convert_character(content, '<p><img src=', '<p><img src="')
 
-    rex = r'<img[^>]*src[=\"\']+([^\"\']*)[\"\'][^>]*>'
-    lists = re.findall(rex, content)
+    rex = r'<img[^>][^>]*>'
+    imgRexList = re.findall(rex, content)
+    lists = []
+    for imgRex in imgRexList:
+        rex = ""
+        if "data-original" in imgRex:
+            rex = r'<img[^>]*data-original[=\"\']+([^\"\']*)[\"\'][^>]*>'
+        else:
+            rex = r'<img[^>]*src[=\"\']+([^\"\']*)[\"\'][^>]*>'
+        imgUrl = re.findall(rex, imgRex)
+        # print(imgUrl)
+        lists.append(str(imgUrl[0]))
 
     backupDir = './image/'
     if os.path.exists(backupDir) == False:
         os.mkdir(backupDir) 
     
     print("照片时间：" + fileNameTimeStr)
-    index = 0
+    index = 1
     alreadDownloadImages = []
     for img in lists:
+        print(img)
         ignore = img.find('?')
         imgIgnore = img
         if ignore != -1:
@@ -299,12 +310,12 @@ def Main(url):
     pass
 
 if __name__ == '__main__':
-    artileDate = "2022-12-18 20:53"
+    artileDate = "2022-12-16 18:13"
     artileDateObj = datetime.datetime.strptime(artileDate, "%Y-%m-%d %H:%M")
     fileNameTimeStr = artileDateObj.strftime("%Y%m%d-%H%M")
 
     url = """
-https://zhuanlan.zhihu.com/p/493489524
+https://zhuanlan.zhihu.com/p/417561163
 """
     Main(url)
     pass
