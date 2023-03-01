@@ -13,6 +13,11 @@ docker exec -it 容器id /bin/bash 进入容器，但exit不会停止运行容�
 docker run -d -i -t -v 宿主绝对目录:容器绝对目录 容器id /bin/bash 挂载本地目录及实现文件共享
 docker run -d -i -t -p 宿主端口:容器端口 容器id /bin/bash 运行容器并端口映射，可-p多个端口
 
+
+docker system df  查看 Docker 的磁盘使用情况
+docker system prune --volumes   清除命令
+
+
 docker commit -a "runoob.com" -m "my apache" 容器名称或id 打包的镜像名称:标签 
 OPTIONS说明： 
 -a :提交的镜像作者； 
