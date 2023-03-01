@@ -25,23 +25,26 @@ RUN apt-get install -y bzip2
 RUN apt-get install -y libssl-dev
 RUN apt-get install -y curl
 RUN apt-get install -y libncurses5-dev
-RUN apt-get install -y python3.6
-RUN apt-get install -y python3-pip
 RUN apt-get install -y automake autoconf libtool make
 RUN apt-get install -y vim
 RUN apt-get install -y zlib1g-dev
 RUN apt-get install -y tree
-RUN pip install virtualenv
 
-RUN apt-get install -y language-pack-zh-hans language-pack-zh-hans-base language-pack-gnome-zh-hans language-pack-gnome-zh-hans-base
-RUN apt-get install -y `check-language-support -l zh-hans`
-RUN export LANG=C.UTF-8
+RUN apt-get install -y python3.6
+RUN apt-get install -y python3-pip
+RUN pip install virtualenv
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
+# 中文显示
+RUN apt-get install -y language-pack-zh-hans*
+RUN apt-get install -y locales
+RUN apt-get install -y fonts-droid-fallback ttf-wqy-zenhei ttf-wqy-microhei fonts-arphic-ukai fonts-arphic-uming
+RUN echo '\n\n\
+export LANG=zh_CN.UTF-8\n\
+export LANGUAGE=zh_CN:zh:en_US:en\n\n'  >> /root/.bashrc
 
 # https://github.com/Kitware/CMake/releases/download/v3.25.2/cmake-3.25.2.tar.gz
 RUN apt-get install -y cmake
-
-# RUN rm /usr/bin/python
-RUN ln -s /usr/bin/python3 /usr/bin/python
 
 
 # WORKDIR $software_dir
