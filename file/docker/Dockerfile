@@ -28,6 +28,7 @@ RUN apt-get install -y libncurses5-dev
 RUN apt-get install -y automake autoconf libtool make
 RUN apt-get install -y vim
 RUN apt-get install -y zlib1g-dev
+RUN apt-get install -y libreadline-dev
 RUN apt-get install -y tree
 
 RUN apt-get install -y python3.6
