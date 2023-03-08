@@ -214,9 +214,12 @@ def callbackfunc(blocknum, blocksize, totalsize):
         percent = 100
     # print("文件下载:%.2f%%"% percent)
 
-def convert_character(string, origin_string, replace_string):
+def convert_character(string, origin_string, replace_string, max=None):
     """用指定的字符替换文本中指定的字符"""
-    string = string.replace(origin_string, replace_string)
+    if max == None:
+        string = string.replace(origin_string, replace_string)
+    else:
+        string = string.replace(origin_string, replace_string, int(max))
     return string
 
 
@@ -283,6 +286,19 @@ def Main(url):
     url = url.lstrip().rstrip()
     html = responseData(url)
     # html = getTheFileContent("./data.html")
+
+    # svg
+    svgDict = {}
+    svgs = re.findall("<svg (.*?)</svg>", html)
+    svgPrefixTag = "SVG_PREFIX_TAG_"
+    svgIndex = 0
+    for svg in svgs:
+        svgTag = svgPrefixTag + str(svgIndex)
+        svgData = "<svg "+svg+"</svg>"
+        svgDict[svgTag] = str(svgData)
+        svgIndex = svgIndex + 1
+        html = convert_character(html, svgData, svgTag, 1)
+    # print(svgDict)
     
     title = re.findall(r"<title>.*</title>", html)
     if len(title) > 0:
@@ -294,10 +310,14 @@ def Main(url):
     content = extract(html)
     content = downloadIMG(content, url)
     print("#" * 100)
-    print(content)
 
+    print(content)
     print("开始转为markdown")
     content = html2text.html2text(content)
+
+    # svg
+    for k, v in svgDict.items():
+        content = convert_character(content, k, str(v), 1)
 
     content = convert_character(content, '# ', '## ')
     content = convert_character(content, ' ', ' ')
@@ -310,12 +330,12 @@ def Main(url):
     pass
 
 if __name__ == '__main__':
-    artileDate = "2022-12-16 18:13"
+    artileDate = "2023-03-04 18:15"
     artileDateObj = datetime.datetime.strptime(artileDate, "%Y-%m-%d %H:%M")
     fileNameTimeStr = artileDateObj.strftime("%Y%m%d-%H%M")
 
     url = """
-https://zhuanlan.zhihu.com/p/417561163
+https://mp.weixin.qq.com/s/uyEth0CtseGgSZ9vEjFyzQ
 """
     Main(url)
     pass
