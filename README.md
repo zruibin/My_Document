@@ -10,6 +10,8 @@ gitUpdate.py
 ### Bash Profile
 
 ```
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 #enables colorin the terminal bash shell export
 export CLICOLOR=1
 
@@ -22,16 +24,25 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 #enables colorfor iTerm
 export TERM=xterm-256color
 
-# depot_tools
-DEPOT_TOOLS_PATH=/Users/ruibin.chow/Documents/code/other_code/webrtc
-# CHROMIUM_BUILDTOOLS_PATH="$DEPOT_TOOLS_PATH/gn/buildtools"
-# export CHROMIUM_BUILDTOOLS_PATH
-export PATH=$PATH:$DEPOT_TOOLS_PATH/gn/depot_tools
+#depot_tools
+DEPOT_TOOLS_PATH=/Users/ruibin.chow/Documents/code/other_code/webrtc/gn
+# export PATH="$DEPOT_TOOLS_PATH:$PATH"
 
-export PATH=/usr/local/Cellar/protobuf/3.17.3/bin:$PATH
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby@3.0/bin:$PATH"
 
 alias python='python3'
 alias pip='pip3'
+# alias pod='arch -x86_64 pod'
+
+alias cp='cp -ig'
+alias mv='mv -ig'
+
+alias brew-clean='brew cleanup --prune=all'
+
+XCODE_DERIVEDDATA=/Users/ruibin.chow/Library/Developer/Xcode/DerivedData
+alias xcode-clean="du -sh $XCODE_DERIVEDDATA && rm -rf $XCODE_DERIVEDDATA/* && echo 'done.'"
+alias xcode-size="du -sh $XCODE_DERIVEDDATA"
 ```
 
 ---
