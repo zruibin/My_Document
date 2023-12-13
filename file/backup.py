@@ -122,6 +122,7 @@ def downloadIMG(content, urlPath):
     content = convert_character(content, '?wx_fmt=png', '')
     content = convert_character(content, '?wx_fmt=jpeg', '')
     content = convert_character(content, 'data-src=', 'src=')
+    content = convert_character(content, 'data-original-src=', 'src=')
     # content = convert_character(content, 'png alt></p>', 'png"></p>')
     # content = convert_character(content, '<p><img src=', '<p><img src="')
 
@@ -129,14 +130,16 @@ def downloadIMG(content, urlPath):
     imgRexList = re.findall(rex, content)
     lists = []
     for imgRex in imgRexList:
-        rex = ""
-        if "data-original" in imgRex:
-            rex = r'<img[^>]*data-original[=\"\']+([^\"\']*)[\"\'][^>]*>'
-        else:
-            rex = r'<img[^>]*src[=\"\']+([^\"\']*)[\"\'][^>]*>'
+        rex = '"([^"]+)"'
+        # if "data-original" in imgRex:
+        #     rex = r'<img[^>]*data-original[=\"\']+([^\"\']*)[\"\'][^>]*>'
+        # else:
+        #     rex = r'<img.*src="(.*?)"'
         imgUrl = re.findall(rex, imgRex)
-        # print(imgUrl)
-        lists.append(str(imgUrl[0]))
+        # print("imgRex:" + str(imgRex))
+        # print("imgUrl:" + str(imgUrl))
+        if len(imgUrl) > 0:
+            lists.append(str(imgUrl[0]))
 
     backupDir = './image/'
     if os.path.exists(backupDir) == False:
@@ -330,12 +333,12 @@ def Main(url):
     pass
 
 if __name__ == '__main__':
-    artileDate = "2023-03-04 18:15"
+    artileDate = "2023-12-02 13:24"
     artileDateObj = datetime.datetime.strptime(artileDate, "%Y-%m-%d %H:%M")
     fileNameTimeStr = artileDateObj.strftime("%Y%m%d-%H%M")
 
     url = """
-https://mp.weixin.qq.com/s/uyEth0CtseGgSZ9vEjFyzQ
+https://www.jianshu.com/p/1eb22d418087
 """
     Main(url)
     pass
@@ -344,6 +347,7 @@ https://mp.weixin.qq.com/s/uyEth0CtseGgSZ9vEjFyzQ
 45.63.107.3
 fF.2[tj9XQX=7U{=
 42.194.251.114
+
 """
 
 
