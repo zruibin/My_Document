@@ -38,11 +38,29 @@ alias pip='pip3'
 alias cp='cp -ig'
 alias mv='mv -ig'
 
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles #ckbrew
+eval $(/usr/local/Homebrew/bin/brew shellenv) #ckbrew
+
+export HOMEBREW_NO_AUTO_UPDATE=true
 alias brew-clean='brew cleanup --prune=all'
+alias brew-cache='open /Users/ruibin.chow/Library/Caches/Homebrew'
 
 XCODE_DERIVEDDATA=/Users/ruibin.chow/Library/Developer/Xcode/DerivedData
 alias xcode-clean="du -sh $XCODE_DERIVEDDATA && rm -rf $XCODE_DERIVEDDATA/* && echo 'done.'"
 alias xcode-size="du -sh $XCODE_DERIVEDDATA"
+```
+
+--- 
+
+### QuickLook
+
+* [quick-look-plugins](https://github.com/sindresorhus/quick-look-plugins.git)
+* [SourceCodeSyntaxHighlight](https://github.com/sbarex/SourceCodeSyntaxHighlight.git)
+
+```
+brew install qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize suspicious-package apparency quicklookase qlvideo
+brew install webpquicklook
+brew install --cask --no-quarantine syntax-highlight
 ```
 
 ---
@@ -53,11 +71,29 @@ alias xcode-size="du -sh $XCODE_DERIVEDDATA"
 
 ```
 // 将设置放入此文件中以覆盖默认设置
+// https://blog.csdn.net/qq_35333978/article/details/121876103
 {
-    "workbench.iconTheme": "material-icon-theme",
     "editor.rulers": [80],
-    "vim.disableAnnoyingNeovimMessage": true,
-    "extensions.ignoreRecommendations": true,
+    "editor.wordWrap": "on",
+    "editor.fontSize": 13.5,
+    "editor.fontFamily": "Consolas, Menlo, Monaco, 'Courier New', monospace",
+    "editor.guides.indentation": false,
+    "editor.showDeprecated": false,
+    "editor.fontLigatures": false,
+    "editor.fontWeight": "normal",
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.scrollBeyondLastLine": false,
+
+    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.fontWeightBold": "normal",
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.persistentSessionScrollback": 5000,
+    "terminal.integrated.scrollback": 1000000,
+
+    "window.newWindowDimensions": "inherit",
+    // "window.commandCenter": true,
+    "window.autoDetectColorScheme": true,
+
     "files.exclude": {
         "**/.DS_Store": true,
         "**/.git": true,
@@ -69,26 +105,19 @@ alias xcode-size="du -sh $XCODE_DERIVEDDATA"
         "**/tags": true
     },
     "files.autoSave": "afterDelay",
-    "editor.wordWrap": "on",
-    "remote.SSH.showLoginTerminal": true,
-    "remote.SSH.connectTimeout": 45,
-    "python.disablePromptForFeatures": [
-        "pylint"
-    ],
-    "vsicons.dontShowNewVersionMessage": true,
-    "window.newWindowDimensions": "inherit",
-    "editor.fontSize": 14,
-    "editor.minimap.enabled": false,
-    "editor.fontFamily": "Consolas, Menlo, Monaco, 'Courier New', monospace",
-    "terminal.integrated.fontSize": 12,
-    "terminal.integrated.fontWeightBold": "normal",
-    "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.persistentSessionScrollback": 5000,
-    "terminal.integrated.scrollback": 5000,
+
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Xcode 11 Default Light",
+    "workbench.preferredDarkColorTheme": "Xcode 11 Default Dark",
+    "workbench.preferredLightColorTheme": "Xcode 11 Default Light",
+    "workbench.editorAssociations": {
+        "*.card": "default",
+        "*.plist": "default"
+    },
     "workbench.tree.indent": 4,
     // "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorCustomizations": {
+    // "workbench.colorCustomizations": {
         // 编辑区域背景
         // "editor.background": "#2E2E2E",
         // // 侧边栏
@@ -111,7 +140,7 @@ alias xcode-size="du -sh $XCODE_DERIVEDDATA"
         // "tab.hoverBorder": "#5b99fcb9",
         // "tab.inactiveForeground": "#8e8e8e",
         // // 最左侧工具栏
-        // "activityBar.background": "#2e2e2e",
+        // "activityBar.background": "#ffffff",
         // // 状态栏
         // "statusBar.background": "#2a2a2a",
         // // panel 窗口
@@ -140,14 +169,45 @@ alias xcode-size="du -sh $XCODE_DERIVEDDATA"
         // "sideBarSectionHeader.background": "#32363d",
         // // 区域获取焦点时
         // "focusBorder": "#5b99fc36"
-    },
+    // },
     "security.workspace.trust.untrustedFiles": "open",
-    "editor.guides.indentation": false,
     "update.mode": "none",
-    "workbench.colorTheme": "Xcode 11 Default Light",
-    "editor.showDeprecated": false,
-    "C_Cpp.errorSquiggles": "Disabled",
+
+    "extensions.ignoreRecommendations": true,
+    
+    "remote.SSH.showLoginTerminal": true,
+    "remote.SSH.connectTimeout": 45,
+    
+    // "C_Cpp.errorSquiggles": "Disabled",
     "C_Cpp.intelliSenseEngine": "disabled",
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.currentLine.scrollable": false,
+    "git.openRepositoryInParentFolders": "never",
+    "gitlens.graph.minimap.enabled": false,
+    
+    "cmake.configureOnOpen": false,
+    
+    "search.useIgnoreFiles": false,
+    "security.workspace.trust.banner": "never",
+    "security.workspace.trust.enabled": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    
+    //https://www.php.cn/faq/485739.html
+    // "editor.tokenColorCustomizations": {
+    //     "[Xcode 11 Default Light]": {
+    //         "textMateRules": [
+    //             {
+    //                 "scope": "variable.parameter",
+    //                 "settings": {
+    //                     "foreground": "#00ff55",
+    //                     "fontStyle": ""
+    //                 }
+    //             },
+    //         ]
+    //     }
+    // }
 }
 ```
 
