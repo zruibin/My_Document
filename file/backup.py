@@ -27,6 +27,7 @@ END_DATA-->
 #### <p>原文出处：<a href='%s' target='blank'>%s</a></p>
 """
 
+PICTURE_SUFFIXS = ["png", "jpg", "jpeg", "gif"]
 
 def remove_js_css (content):
     """ remove the the javascript and the stylesheet and the comment content (<script>....</script> and <style>....</style> <!-- xxx -->) """
@@ -285,6 +286,14 @@ def convertFiles(DIR):
         convertHtmlToMarkdown(path)
     pass
 
+def covertPicture(content):
+    errs = []
+    for suffix in PICTURE_SUFFIXS:
+        errs = errs + re.findall(suffix+"(.*?)\)", content)
+    for err in errs:
+        content = convert_character(content, err, "")
+    return content
+
 def Main(url):
     url = url.lstrip().rstrip()
     html = responseData(url)
@@ -327,18 +336,19 @@ def Main(url):
 
     header = HEADER_TEXT % (artileDate, artileDate, url, title)
     content = header + '\n' + content
+    content = covertPicture(content)
     writeContentToFile('temp.md', content)
     print("转换完成！")
 
     pass
 
 if __name__ == '__main__':
-    artileDate = "2023-12-02 13:24"
+    artileDate = "2024-01-18 19:30"
     artileDateObj = datetime.datetime.strptime(artileDate, "%Y-%m-%d %H:%M")
     fileNameTimeStr = artileDateObj.strftime("%Y%m%d-%H%M")
 
     url = """
-https://www.jianshu.com/p/1eb22d418087
+https://juejin.cn/post/7321558573518815258
 """
     Main(url)
     pass
