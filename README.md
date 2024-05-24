@@ -10,6 +10,9 @@ gitUpdate.py
 ### Bash Profile
 
 ```
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 #enables colorin the terminal bash shell export
@@ -25,11 +28,12 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 export TERM=xterm-256color
 
 #depot_tools
-DEPOT_TOOLS_PATH=/Users/ruibin.chow/Documents/code/other_code/webrtc/gn
-# export PATH="$DEPOT_TOOLS_PATH:$PATH"
+#DEPOT_TOOLS_PATH=/Users/ruibin.chow/Documents/code/other_code/webrtc/gn
+#export PATH="$DEPOT_TOOLS_PATH:$PATH"
 
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby@3.0/bin:$PATH"
+
 
 alias python='python3'
 alias pip='pip3'
@@ -38,16 +42,33 @@ alias pip='pip3'
 alias cp='cp -ig'
 alias mv='mv -ig'
 
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles #ckbrew
-eval $(/usr/local/Homebrew/bin/brew shellenv) #ckbrew
+alias git-reset='git add . && git reset --hard HEAD && git status'
 
-export HOMEBREW_NO_AUTO_UPDATE=true
 alias brew-clean='brew cleanup --prune=all'
 alias brew-cache='open /Users/ruibin.chow/Library/Caches/Homebrew'
+export HOMEBREW_NO_AUTO_UPDATE=true
+
 
 XCODE_DERIVEDDATA=/Users/ruibin.chow/Library/Developer/Xcode/DerivedData
 alias xcode-clean="du -sh $XCODE_DERIVEDDATA && rm -rf $XCODE_DERIVEDDATA/* && echo 'done.'"
 alias xcode-size="du -sh $XCODE_DERIVEDDATA"
+# ~/Library/Caches/CocoaPods/Pods
+
+
+ANDROID_HOME=/Users/ruibin.chow/Documents/code/Android/SDK
+export PATH="$PATH:$ANDROID_HOME/emulator"
+export PATH="$PATH:$ANDROID_HOME/tools"
+export PATH="$PATH:$ANDROID_HOME/tools/bin"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+
+# node
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+
+eval $(thefuck --alias)
+eval $(thefuck --alias FUCK)
 ```
 
 --- 
@@ -75,6 +96,7 @@ brew install --cask --no-quarantine syntax-highlight
 {
     "editor.rulers": [80],
     "editor.wordWrap": "on",
+    "editor.lineHeight": 1.5,
     "editor.fontSize": 13.5,
     "editor.fontFamily": "Consolas, Menlo, Monaco, 'Courier New', monospace",
     "editor.guides.indentation": false,
@@ -83,6 +105,38 @@ brew install --cask --no-quarantine syntax-highlight
     "editor.fontWeight": "normal",
     "editor.unicodeHighlight.ambiguousCharacters": false,
     "editor.scrollBeyondLastLine": false,
+    "editor.indentSize": "tabSize",
+    "editor.autoIndent": "advanced",
+    // "editor.guides.bracketPairs": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.autoClosingBrackets": "beforeWhitespace",
+    "editor.autoClosingDelete": "always",
+    "editor.autoClosingOvertype": "always",
+    "editor.autoClosingQuotes": "beforeWhitespace",
+    "editor.stickyScroll.enabled": false,
+    "editor.minimap.enabled": false,
+
+    "search.useIgnoreFiles": false,
+    "search.followSymlinks": false,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/pnpm-lock.yaml": true,
+        "**/package-lock.json": true,
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.gitignore": true,
+        "**/.idea": true,
+        "**/.svn": true,
+        "**/.vscode": true,
+        "**/build": true,
+        "**/dist": true,
+        "**/tmp": true,
+        "**/yarn.lock": true
+    },
+
+    // 文件夹紧凑模式
+    "explorer.compactFolders": true,
+    "notebook.compactView": true,
 
     "terminal.integrated.fontSize": 13,
     "terminal.integrated.fontWeightBold": "normal",
@@ -93,6 +147,7 @@ brew install --cask --no-quarantine syntax-highlight
     "window.newWindowDimensions": "inherit",
     // "window.commandCenter": true,
     "window.autoDetectColorScheme": true,
+    "window.dialogStyle": "custom",
 
     "files.exclude": {
         "**/.DS_Store": true,
@@ -100,12 +155,15 @@ brew install --cask --no-quarantine syntax-highlight
         "**/.hg": true,
         "**/.idea": true,
         "**/.svn": true,
+        "**/*.meta": true,
         "**/*.pyc": true,
         "**/CVS": true,
         "**/tags": true
     },
     "files.autoSave": "afterDelay",
+    "files.trimTrailingWhitespace": false,
 
+    "workbench.activityBar.location": "top",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "Xcode 11 Default Light",
     "workbench.preferredDarkColorTheme": "Xcode 11 Default Dark",
@@ -114,8 +172,8 @@ brew install --cask --no-quarantine syntax-highlight
         "*.card": "default",
         "*.plist": "default"
     },
-    "workbench.tree.indent": 4,
-    // "workbench.sideBar.location": "left",
+    "workbench.tree.indent": 10,
+    "workbench.tree.renderIndentGuides": "none",
     "workbench.startupEditor": "newUntitledFile",
     // "workbench.colorCustomizations": {
         // 编辑区域背景
@@ -177,6 +235,19 @@ brew install --cask --no-quarantine syntax-highlight
     
     "remote.SSH.showLoginTerminal": true,
     "remote.SSH.connectTimeout": 45,
+
+    "javascript.format.semicolons": "remove",
+    "javascript.inlayHints.enumMemberValues.enabled": true,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
+    "javascript.inlayHints.parameterNames.enabled": "none",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.preferTypeOnlyAutoImports": true,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.format.semicolons": "remove",
+    "typescript.inlayHints.enumMemberValues.enabled": true,
     
     // "C_Cpp.errorSquiggles": "Disabled",
     "C_Cpp.intelliSenseEngine": "disabled",
@@ -186,13 +257,41 @@ brew install --cask --no-quarantine syntax-highlight
     "gitlens.graph.minimap.enabled": false,
     
     "cmake.configureOnOpen": false,
-    
-    "search.useIgnoreFiles": false,
     "security.workspace.trust.banner": "never",
     "security.workspace.trust.enabled": false,
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "cmake.options.advanced": {
+        "build": {
+            "statusBarVisibility": "visible"
+        },
+        "launch": {
+            "statusBarVisibility": "visible"
+        },
+        "debug": {
+            "statusBarVisibility": "visible"
+        }
+    },
+    "cmake.configureSettings": {
+
+    },
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build",
+        "--header-insertion=never"
+    ],
+    "cmake.options.statusBarVisibility": "visible",
+    "cmake.showOptionsMovedNotification": false,
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "debug.javascript.unmapMissingSources": true,
+
+
+
     
     //https://www.php.cn/faq/485739.html
     // "editor.tokenColorCustomizations": {
