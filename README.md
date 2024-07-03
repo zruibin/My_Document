@@ -7,7 +7,7 @@ Git概念添加常用命
 gitUpdate.py
 
 
-### Bash Profile
+### Zsh Profile
 
 ```
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -42,20 +42,29 @@ alias pip='pip3'
 alias cp='cp -ig'
 alias mv='mv -ig'
 
+alias cat-rc='cat ~/.zshrc'
+
 alias git-reset='git add . && git reset --hard HEAD && git status'
 
 alias brew-clean='brew cleanup --prune=all'
-alias brew-cache='open /Users/ruibin.chow/Library/Caches/Homebrew'
+alias brew-cache='open $HOME/Library/Caches/Homebrew'
 export HOMEBREW_NO_AUTO_UPDATE=true
 
 
-XCODE_DERIVEDDATA=/Users/ruibin.chow/Library/Developer/Xcode/DerivedData
+XCODE_DERIVEDDATA=$HOME/Library/Developer/Xcode/DerivedData
 alias xcode-clean="du -sh $XCODE_DERIVEDDATA && rm -rf $XCODE_DERIVEDDATA/* && echo 'done.'"
 alias xcode-size="du -sh $XCODE_DERIVEDDATA"
 # ~/Library/Caches/CocoaPods/Pods
 
+GRADLE_CACHE=$HOME/.gradle/caches
+alias gradle-size="du -sh $GRADLE_CACHE"
+alias gradle-clean="du -sh $GRADLE_CACHE && rm -rf $GRADLE_CACHE/* && echo 'done.'"
 
-ANDROID_HOME=/Users/ruibin.chow/Documents/code/Android/SDK
+
+alias lint-check='$HOME/Documents/code/check/check.sh'
+
+
+ANDROID_HOME=$HOME/Documents/code/Android/SDK
 export PATH="$PATH:$ANDROID_HOME/emulator"
 export PATH="$PATH:$ANDROID_HOME/tools"
 export PATH="$PATH:$ANDROID_HOME/tools/bin"
@@ -65,6 +74,10 @@ export PATH="$PATH:$ANDROID_HOME/platform-tools"
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# vscode
+VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export PATH="$PATH:$VSCODE"
 
 
 eval $(thefuck --alias)
