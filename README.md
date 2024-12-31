@@ -10,6 +10,10 @@ gitUpdate.py
 ### Zsh Profile
 
 ```
+# PS1="%n@%m %1~ %# "
+PS1="%F{#008000}%B%1~[%*] ->%b%f "
+
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -28,8 +32,8 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 export TERM=xterm-256color
 
 #depot_tools
-#DEPOT_TOOLS_PATH=/Users/ruibin.chow/Documents/code/other_code/webrtc/gn
-#export PATH="$DEPOT_TOOLS_PATH:$PATH"
+DEPOT_TOOLS_PATH=/Users/ruibin.chow/Documents/code/other_code/webrtc/depot_tools
+export PATH="$DEPOT_TOOLS_PATH:$PATH"
 
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby@3.0/bin:$PATH"
@@ -52,14 +56,20 @@ export HOMEBREW_NO_AUTO_UPDATE=true
 
 
 XCODE_DERIVEDDATA=$HOME/Library/Developer/Xcode/DerivedData
-alias xcode-clean="du -sh $XCODE_DERIVEDDATA && rm -rf $XCODE_DERIVEDDATA/* && echo 'done.'"
 alias xcode-size="du -sh $XCODE_DERIVEDDATA"
-# ~/Library/Caches/CocoaPods/Pods
+alias xcode-clean="du -sh $XCODE_DERIVEDDATA && rm -rf $XCODE_DERIVEDDATA/* && echo 'done.'"
+
+PODS_CACHE=$HOME/Library/Caches/CocoaPods/Pods
+alias pods-size="du -sh $PODS_CACHE && du -sh $HOME/.cocoapods"
+alias pods-clean="du -sh $PODS_CACHE && rm -rf $PODS_CACHE/* && echo 'done.'"
+
 
 GRADLE_CACHE=$HOME/.gradle/caches
 alias gradle-size="du -sh $GRADLE_CACHE"
 alias gradle-clean="du -sh $GRADLE_CACHE && rm -rf $GRADLE_CACHE/* && echo 'done.'"
 
+alias all-size="pods-size && xcode-size && gradle-size"
+alias all-clean="pods-clean && xcode-clean && gradle-clean"
 
 alias lint-check='$HOME/Documents/code/check/check.sh'
 
@@ -75,9 +85,14 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
+JAVA_HOME=$HOME/Documents/code/Android/jdk-17.0.13.jdk/Contents/Home
+export PATH="$PATH:$JAVA_HOME"
+
 # vscode
-VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-export PATH="$PATH:$VSCODE"
+# VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+# export PATH="$PATH:$VSCODE"
+
+alias busy="genact" #a nonsense activity generator
 
 
 eval $(thefuck --alias)
