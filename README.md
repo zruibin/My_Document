@@ -50,6 +50,9 @@ alias cat-rc='cat ~/.zshrc'
 
 alias git-reset='git add . && git reset --hard HEAD && git status'
 
+ZSH_SETOPT='setopt +o nomatch && setopt rm_star_silent'
+ZSH_UNSETOPT='unsetopt +o nomatch && unsetopt rm_star_silent'
+
 alias brew-clean='brew cleanup --prune=all'
 alias brew-cache='open $HOME/Library/Caches/Homebrew'
 export HOMEBREW_NO_AUTO_UPDATE=true
@@ -68,8 +71,13 @@ GRADLE_CACHE=$HOME/.gradle/caches
 alias gradle-size="du -sh $GRADLE_CACHE"
 alias gradle-clean="du -sh $GRADLE_CACHE && rm -rf $GRADLE_CACHE/* && echo 'done.'"
 
-alias all-size="pods-size && xcode-size && gradle-size"
-alias all-clean="pods-clean && xcode-clean && gradle-clean"
+NPM_CACHE=$(npm config get cache)
+alias npm-size="du -sh $NPM_CACHE"
+alias npm-clean="npm cache clean --force && echo 'done.'"
+
+
+alias all-size="pods-size && xcode-size && gradle-size && npm-size"
+alias all-clean="$ZSH_SETOPT && pods-clean && xcode-clean && gradle-clean && npm-clean && $ZSH_UNSETOPT"
 
 alias lint-check='$HOME/Documents/code/check/check.sh'
 
@@ -85,7 +93,7 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
-JAVA_HOME=$HOME/Documents/code/Android/jdk-17.0.13.jdk/Contents/Home
+export JAVA_HOME=$HOME/Documents/code/Android/jdk-17.0.13.jdk/Contents/Home
 export PATH="$PATH:$JAVA_HOME"
 
 # vscode
