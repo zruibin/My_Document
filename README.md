@@ -59,24 +59,24 @@ export HOMEBREW_NO_AUTO_UPDATE=true
 
 
 XCODE_DERIVEDDATA=$HOME/Library/Developer/Xcode/DerivedData
-alias xcode-size="du -sh $XCODE_DERIVEDDATA"
-alias xcode-clean="du -sh $XCODE_DERIVEDDATA && rm -rf $XCODE_DERIVEDDATA/* && echo 'done.'"
+alias xcode-size="du -sh $XCODE_DERIVEDDATA || true"
+alias xcode-clean="xcode-size && rm -rf $XCODE_DERIVEDDATA/* && echo 'done.'"
 
 PODS_CACHE=$HOME/Library/Caches/CocoaPods/Pods
-alias pods-size="du -sh $PODS_CACHE && du -sh $HOME/.cocoapods"
-alias pods-clean="du -sh $PODS_CACHE && rm -rf $PODS_CACHE/* && echo 'done.'"
+alias pods-size="du -sh $PODS_CACHE || true && du -sh $HOME/.cocoapods || true"
+alias pods-clean="pods-size && rm -rf $PODS_CACHE/* && rm -rf $HOME/.cocoapods && echo 'done.'"
 
 
 GRADLE_CACHE=$HOME/.gradle/caches
-alias gradle-size="du -sh $GRADLE_CACHE"
-alias gradle-clean="du -sh $GRADLE_CACHE && rm -rf $GRADLE_CACHE/* && echo 'done.'"
+alias gradle-size="du -sh $GRADLE_CACHE || true"
+alias gradle-clean="gradle-size && rm -rf $GRADLE_CACHE/* && echo 'done.'"
 
 NPM_CACHE=$(npm config get cache)
-alias npm-size="du -sh $NPM_CACHE"
+alias npm-size="du -sh $NPM_CACHE || true"
 alias npm-clean="npm cache clean --force && echo 'done.'"
 
 
-alias all-size="pods-size && xcode-size && gradle-size && npm-size"
+alias all-size="$ZSH_SETOPT && pods-size && xcode-size && gradle-size && npm-size && $ZSH_UNSETOPT"
 alias all-clean="$ZSH_SETOPT && pods-clean && xcode-clean && gradle-clean && npm-clean && $ZSH_UNSETOPT"
 
 alias lint-check='$HOME/Documents/code/check/check.sh'
