@@ -71,7 +71,7 @@ GRADLE_CACHE=$HOME/.gradle/caches
 alias gradle-size="du -sh $GRADLE_CACHE || true"
 alias gradle-clean="gradle-size && rm -rf $GRADLE_CACHE/* && echo 'done.'"
 
-NPM_CACHE=$(npm config get cache)
+NPM_CACHE=$HOME/.npm
 alias npm-size="du -sh $NPM_CACHE || true"
 alias npm-clean="npm cache clean --force && echo 'done.'"
 
