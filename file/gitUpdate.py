@@ -39,10 +39,10 @@ def gitOperator(gitString, newline=True):
     for line in output.readlines():
         log(line, newline)
 
-def gitOperatorCMD(parameterList):
+def gitOperatorCMD(parameterList, newline=True):
     # res = subprocess.call(parameterList)
     gitString = " ".join(parameterList)
-    gitOperator(gitString)
+    gitOperator(gitString, newline)
     pass
 
 def getGitUrl():
@@ -61,7 +61,7 @@ def getBranchs():
     with open(configPath, "r") as fp:
         content = fp.read()
     branchs = []
-    tmpList = re.findall('\[branch .*?\]', content)
+    tmpList = re.findall(r'\[branch .*?\]', content)
     for tmp in tmpList:
         if tmp == '[core]' or tmp == '[remote "origin"]':
             continue
@@ -69,6 +69,29 @@ def getBranchs():
         branchs.append(branch)
         pass
     return branchs
+
+def convert_http_to_ssh(url):
+    if url.startswith('http'):
+        parts = url.split('/')
+        domain = parts[2]
+        path = '/'.join(parts[3:])
+        ssh_url = f'git@{domain}:{path}'
+        return ssh_url
+    return url
+
+def getRemote():
+    configPath = ".git/config"
+    content = ""
+    with open(configPath, "r") as fp:
+        content = fp.read()
+    pattern = r'\[remote "([^"]+)"\]\s+url = (\S+)'
+    matches = re.findall(pattern, content)
+    urls = {remote_name: url for remote_name, url in matches}
+    url = urls['origin']
+    if 'github' in url:
+        return convert_http_to_ssh(url)
+    else:
+        return url
 
 def fetchAndUpdate(path):
     os.chdir(path)
@@ -81,13 +104,21 @@ def fetchAndUpdate(path):
     gitString = "git fetch --all"
     gitOperator(gitString)
 
+    url = getRemote()
+    log(url)
+
     for branch in branchs:
         gitOperatorCMD(["git", "checkout", branch])
 
-        gitString = "git pull"
-        gitOperator(gitString, False)
+        if url.startswith('http'):
+            gitString = "git pull"
+            gitOperator(gitString, False)
+        else:
+            gitOperatorCMD(["git", "pull", url, branch], False)
 
         """
+        git pull git@github.com:yourusername/your-repo.git main
+
         tempName = "temp"
         gitString = "git fetch origin " + branch + ":" + tempName
         gitOperator(gitString)
